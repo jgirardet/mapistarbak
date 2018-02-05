@@ -13,6 +13,7 @@ DATABASES = {
 
 INSTALLED_APPS = [
     'pseudos',
+    'patients',
 ]
 
 SECRET_KEY = env['SECRET_KEY']
