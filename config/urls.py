@@ -2,8 +2,8 @@
 from apistar import Include
 from apistar.handlers import docs_urls
 from apistar.handlers import static_urls
-from pseudos.urls import pseudo_urls
 from patients.urls import patients_urls
+from pseudos.urls import pseudo_urls
 
 routes = [
     Include('/docs', docs_urls),

@@ -1,7 +1,7 @@
 # Third Party Libraries
 from apistar.exceptions import NotFound
-from django.shortcuts import get_object_or_404 as django_get_object_or_404
 from django.shortcuts import _get_queryset
+from django.shortcuts import get_object_or_404 as django_get_object_or_404
 
 
 def get_object_or_404(klass, *args, **kwargs):
