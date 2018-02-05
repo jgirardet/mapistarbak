@@ -1,9 +1,12 @@
-from .models import Pseudo
-from .schemas import PseudoSchema
+# Standard Libraries
 from typing import List
 
+# Third Party Libraries
 from apistar import Response
 from apistar.backends.django_orm import Session
+
+from .models import Pseudo
+from .schemas import PseudoSchema
 
 
 def pseudo_create(session: Session, pseudo: PseudoSchema) -> Response:

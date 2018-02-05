@@ -11,8 +11,6 @@ from apistar.test import TestClient
 from app import app
 from pseudos.models import Pseudo
 
-
-
 # mapistar
 from mapistar import mapistar
 
