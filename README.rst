@@ -12,9 +12,6 @@ mapistar
 .. image:: https://badge.fury.io/py/mapistar.svg
    :target: https://pypi.python.org/pypi/mapistar/
    :alt: Pypi package
-.. image:: https://img.shields.io/badge/license-MIT-blue.svg
-   :target: ./LICENSE
-   :alt: GNU General Public License v3
 
 Api pour ma gestion d'un dossier médical sous Apistar
 
