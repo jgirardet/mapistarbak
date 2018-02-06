@@ -1,5 +1,4 @@
-    # -*- coding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
 """
 test_mapistar
 ----------------------------------
@@ -19,8 +18,6 @@ def test_mapistar():
     assert mapistar.main() == "hello"
 
 
-
-
 def test_http_request():
     """
     Testing a view, using the test client with
@@ -28,6 +25,7 @@ def test_http_request():
     client = TestClient(app)
     response = client.get('http://localhost/pseudos/')
     assert response.status_code == 200
+
 
 def test_http_request_with_fixture(ss):
     """

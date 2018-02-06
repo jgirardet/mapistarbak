@@ -1,1 +1,4 @@
-{}
+{
+  "tests/patients/test_views.py::test_patient_list4": true,
+  "tests/test_mapistar.py::test_http_request": true
+}

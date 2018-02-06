@@ -1,19 +1,21 @@
 [[source]]
+
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 
+
 [dev-packages]
-flake8 = "*"
+
+"flake8" = "*"
 pycodestyle = "*"
 yapf = "*"
 isort = "*"
-autopep8 = "*"
+"autopep8" = "*"
 cryptography = "*"
-PyYAML = "*"
+pyyaml = "*"
 pytest = "*"
 pytest-cov = "*"
 tox = "*"
-# pipenv-to-requirements = "*"
 pipenv-to-requirements = {git = "https://github.com/jgirardet/pipenv-to-requirements.git@git", editable=true}
 "flake8-coding" = "*"
 "flake8-comprehensions" = "*"
@@ -23,13 +25,13 @@ pytest-pythonpath = "*"
 pytest-django = "*"
 django-reset-migrations = "*"
 django-extensions = "*"
+pytest-env-info = "*"
 
 
 [packages]
+
 pbr = ">=3.0"
 apistar = {git = "https://github.com/audiolion/apistar.git", editable=true}
 apistar-shell = "*"
 django = "*"
-psycopg2 = "*"
-
-
+"psycopg2" = "*"
