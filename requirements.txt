@@ -10,7 +10,7 @@
 # `Pipfile.lock` and then regenerate `requirements*.txt`.
 ################################################################################
 
--e .
+-e git+https://github.com/audiolion/apistar.git#egg=apistar
 apistar-shell==1.0
 attrs==17.4.0
 certifi==2018.1.18

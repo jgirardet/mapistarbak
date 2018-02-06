@@ -8,21 +8,18 @@ pycodestyle = "*"
 yapf = "*"
 isort = "*"
 autopep8 = "*"
-
 cryptography = "*"
 PyYAML = "*"
-
 pytest = "*"
 pytest-cov = "*"
 tox = "*"
-pipenv-to-requirements = "*"
+# pipenv-to-requirements = "*"
+pipenv-to-requirements = {git = "https://github.com/jgirardet/pipenv-to-requirements.git@git", editable=true}
 "flake8-coding" = "*"
 "flake8-comprehensions" = "*"
 sphinx = "*"
 sphinx-autobuild = "*"
 pytest-pythonpath = "*"
-
-
 pytest-django = "*"
 django-reset-migrations = "*"
 django-extensions = "*"
@@ -30,7 +27,6 @@ django-extensions = "*"
 
 [packages]
 pbr = ">=3.0"
-
 apistar = {git = "https://github.com/audiolion/apistar.git", editable=true}
 apistar-shell = "*"
 django = "*"
