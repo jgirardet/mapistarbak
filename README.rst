@@ -9,6 +9,9 @@ mapistar
    :alt: Documentation Status
 .. image:: https://coveralls.io/repos/github/jgirardet/mapistar/badge.svg
    :target: https://coveralls.io/github/jgirardet/mapistar
+   .. image:: https://coveralls.io/repos/github/jgirardet/mapistar/badge.svg?branch=master
+   :target: https://coveralls.io/github/jgirardet/mapistar?branch=master
+
 .. image:: https://badge.fury.io/py/mapistar.svg
    :target: https://pypi.python.org/pypi/mapistar/
    :alt: Pypi package
