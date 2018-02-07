@@ -6,6 +6,7 @@ Tests for `mapistar` module.
 """
 
 # Third Party Libraries
+import pytest
 from apistar.test import TestClient
 from pseudos.models import Pseudo
 
@@ -17,7 +18,6 @@ def test_mapistar():
     assert mapistar.main() == "hello"
 
 
-import pytest
 
 pytestmark = pytest.mark.django_db()
 

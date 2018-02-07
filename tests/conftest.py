@@ -1,12 +1,15 @@
 # Third Party Libraries
+# Standard Libraries
+import typing
+from contextlib import contextmanager
+
 import pytest
 from apistar import Component
-from apistar.backends.django_orm import DjangoORM, Session
-from config import settings
-from contextlib import contextmanager
-import typing
-from app import components
+from apistar.backends.django_orm import DjangoORM
+from apistar.backends.django_orm import Session
 from apistar.frameworks.wsgi import WSGIApp as App
+from app import components
+from config import settings
 from config.urls import routes
 
 

@@ -1,10 +1,10 @@
 # Third Party Libraries
+import pytest
 from patients.models import Patient
 from patients.schemas import PatientSchema
 from patients.views import patients_create
 from patients.views import patients_detail
 from patients.views import patients_list
-import pytest
 
 # pytestmark = pytest.mark.django_db()
 
