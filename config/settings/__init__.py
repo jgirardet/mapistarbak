@@ -4,7 +4,9 @@ from .get_env import env
 import django
 from django.apps import apps
 
+# define this is needed by django
 os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
+
 try:
     os.environ['PYTEST_VER']  #given by pytest-env-info
 except KeyError:
@@ -17,6 +19,7 @@ except KeyError:
 else:
     print('test config loaded')
     from .test import *
+
 if SECRET_KEY == "please_change_it":
     print("""
 ##################################
@@ -34,5 +37,6 @@ if DEBUG:
 ##################################
 """)
 
+# needed
 if not apps.ready:
     django.setup()
