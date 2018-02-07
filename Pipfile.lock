@@ -605,8 +605,11 @@
             "version": "==9.0.3"
         },
         "pipenv-to-requirements": {
-            "editable": true,
-            "git": "https://github.com/jgirardet/pipenv-to-requirements.git@git"
+            "hashes": [
+                "sha256:96124776bb96da02901c92c68eadb36c05edb11df88d672bd5d8fd5fce748792",
+                "sha256:30a4911356cd65dfc8ab0344e21f25e425581316c108a00497f6297b4e392dcf"
+            ],
+            "version": "==0.2.3"
         },
         "pluggy": {
             "hashes": [

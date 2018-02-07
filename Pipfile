@@ -16,7 +16,7 @@ PyYAML = "*"
 pytest = "*"
 pytest-cov = "*"
 tox = "*"
-pipenv-to-requirements = {git = "https://github.com/jgirardet/pipenv-to-requirements.git@git", editable=true}
+pipenv-to-requirements = "*"
 "flake8-coding" = "*"
 "flake8-comprehensions" = "*"
 Sphinx = "*"
