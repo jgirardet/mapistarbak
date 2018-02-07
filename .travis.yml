@@ -7,12 +7,7 @@ python:
   - 3.6
 
 env:
-  - DB_ENGINE=django.db.backends.postgresql
-  - DB=PORT=
-  - DB_NAME=test
-  - DB_HOST=localhost
-  - DB_USER=postgres
-  - DB_PASSWORD=
+  - DB_ENGINE=django.db.backends.postgresql DB=PORT= DB_NAME=test DB_HOST=localhost DB_USER=postgres DB_PASSWORD=
 
 before_script:
   - psql -c 'test;' -U postgres
