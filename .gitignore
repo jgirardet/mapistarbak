@@ -147,7 +147,8 @@ GitHub.sublime-settings
 # End of https://www.gitignore.io/api/django,python,sublimetext
 
 
-
 env/
 doc/_build/ 
 Pipfile.lock
+AUTHORS
+ChangeLog
