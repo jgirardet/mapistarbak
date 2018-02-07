@@ -15,7 +15,7 @@ from config import settings
 routes = importlib.import_module('config.urls').routes
 
 components = []
-components += django_orm.components
+components = components + django_orm.components
 
 app = App(
     routes=routes,
