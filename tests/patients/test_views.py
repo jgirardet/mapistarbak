@@ -1,20 +1,27 @@
 # Third Party Libraries
+import pytest
 from patients.models import Patient
 from patients.schemas import PatientSchema
 from patients.views import patients_create
 from patients.views import patients_detail
 from patients.views import patients_list
 
+# pytestmark = pytest.mark.django_db()
+
 
 def test_patient_list(ss):
     a = Patient.objects.create(name="mlokmk", firstname="mokmok")
     assert patients_list(ss) == [PatientSchema(Patient.objects.get(id=1))]
+    # assert True
 
 
 def test_patient_list2(ss):
 
     a = Patient.objects.create(name="mlokmk", firstname="mokmok")
-    assert patients_list(ss) == [PatientSchema(Patient.objects.get(id=1))]
+    print("id:", a.id)
+
+    # assert True
+    assert patients_list(ss) == [PatientSchema(Patient.objects.get(id=a.id))]
 
 
 def test_patient_list3(ss):
@@ -28,4 +35,4 @@ def test_patient_list3(ss):
 
 def test_patient_list4(ss):
     a = Patient.objects.create(name="mlokmk", firstname="mokmok")
-    assert patients_list(ss) == [PatientSchema(Patient.objects.get(id=1))]
+    assert patients_list(ss) == [PatientSchema(Patient.objects.get(id=a.id))]

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5553a9b462621f64ae39153165df5025ec971c7f561f4dfaacbc64086616d981"
+            "sha256": "f708309745122031f54fce825e2123c0f31e6da6eeb6678630061c4fa7dc0f47"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -28,7 +28,8 @@
     "default": {
         "apistar": {
             "editable": true,
-            "git": "https://github.com/audiolion/apistar.git"
+            "git": "https://github.com/audiolion/apistar.git",
+            "ref": "f91a6dfc13db64d85036693ff278e2b1b2fb4b59"
         },
         "apistar-shell": {
             "hashes": [
@@ -677,6 +678,13 @@
             ],
             "version": "==3.1.2"
         },
+        "pytest-env-info": {
+            "hashes": [
+                "sha256:4317ee9983219cbeb212caa6a6c83ff461411a0d58c28b0b6d3335c7f4eb0f42",
+                "sha256:31e32cb950658517efae6991bd6ce4cfc3ee9b2adcb6b9ae930f5593a692fb1a"
+            ],
+            "version": "==0.3.0"
+        },
         "pytest-pythonpath": {
             "hashes": [
                 "sha256:f3d46b0a8276e856f7dc4f70ca97b88be6fbcf52d57ce36e35057d502388265e"
@@ -795,6 +803,7 @@
                 "sha256:39d88b533b422825d644087a21e78c45cf5af0ef7a99a1fc9fbb7b481e5c85b0",
                 "sha256:02f8102c2436bb03b3ee6dede1919d1dac8a427541652e5ec95171ec8adbc93a"
             ],
+            "markers": "python_version != '3.2'",
             "version": "==15.1.0"
         },
         "virtualenv-clone": {
