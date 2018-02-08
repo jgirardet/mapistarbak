@@ -1,7 +1,9 @@
-from utils.django_utils import aps_get_list_or_404, aps_get_object_or_404
-from patients.models import Patient
+# Third Party Libraries
 import pytest
 from apistar.exceptions import NotFound
+from patients.models import Patient
+from utils.django_utils import aps_get_list_or_404
+from utils.django_utils import aps_get_object_or_404
 
 
 class TestObject:

@@ -3,9 +3,11 @@
 # Standard Libraries
 # Standard Libraries
 # Standard Libraries
+# Standard Libraries
 import typing
 from contextlib import contextmanager
 
+import factory
 import pytest
 from apistar import Component
 from apistar.backends.django_orm import DjangoORM
@@ -14,6 +16,7 @@ from apistar.frameworks.wsgi import WSGIApp as App
 from app import components
 from config import settings
 from config.urls import routes
+from tests.factories import *
 
 
 ################################################
@@ -60,9 +63,7 @@ def app_fix():
 ############################################
 """""" """""" """""" """""" """""" """""" """""" """""" """""
 """ """""" """""" """""" """""" """""" """""" """""" """""" ""
-import factory
 # from django.contrib.auth import get_user_model
-from tests.factories import *
 
 # from pytest_django.fixtures import db
 
