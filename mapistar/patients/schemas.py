@@ -5,16 +5,17 @@ from collections import ChainMap
 from apistar import typesystem
 
 
-class RequiredText(typesystem.String):
+class RegularText(typesystem.String):
     max_length = 50
 
-    pattern = "^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]+$"
+    pattern = "^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$"
 
 
 class PatientSchema(typesystem.Object):
     properties = {
-        'name': RequiredText,
-        'firstname': RequiredText,
+        'id': typesystem.Integer,
+        'name': RegularText,
+        'firstname': RegularText,
         # 'birthdate': typesystem.string(max_length=50)
     }
     required = ['name', 'firstname']

@@ -34,7 +34,7 @@ class Patient(models.Model):
     # required Field
     name = models.CharField(max_length=50)
     firstname = models.CharField(max_length=50)
-    # birthdate = models.DateField()
+    birthdate = models.DateField()
     sexe = models.BooleanField(default=True)  # True if women else false
     # non required fields
 
