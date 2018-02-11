@@ -7,7 +7,6 @@ from apistar.backends.django_orm import Session
 from utils.django_utils import aps_get_object_or_404
 
 from .schemas import PatientSchema
-from .schemas import PatientSchemaId
 
 
 def patients_detail(session: Session, patient_id: int) -> PatientSchema:
@@ -15,7 +14,7 @@ def patients_detail(session: Session, patient_id: int) -> PatientSchema:
     Get patient details
     """
     pat = aps_get_object_or_404(session.Patient, id=patient_id)
-    return PatientSchemaId(pat)
+    return PatientSchema(pat)
 
 
 def patients_create(session: Session, patient: PatientSchema) -> Response:
@@ -24,10 +23,10 @@ def patients_create(session: Session, patient: PatientSchema) -> Response:
     """
     patient.pop('id')
     p = session.Patient.objects.create(**patient)
-    return Response(PatientSchemaId(p), status=201)
+    return Response(PatientSchema(p), status=201)
 
 
-def patients_list(session: Session) -> List[PatientSchemaId]:
+def patients_list(session: Session) -> List[PatientSchema]:
     """
     List patients
     """
