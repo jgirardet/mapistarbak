@@ -1,23 +1,22 @@
 # Standard Libraries
 from collections import ChainMap
+from datetime import date
 
 # Third Party Libraries
 from apistar import typesystem
-from datetime import date
 from utils.schemas import RegularText
 
 
 class PatientSchema(typesystem.Object):
     properties = {
         'id':
-        typesystem.Integer,
+            typesystem.Integer,
         'name':
-        RegularText,
+            RegularText,
         'firstname':
-        RegularText,
+            RegularText,
         'birthdate':
-        typesystem.string(
-            pattern=
-            "^([0-9]{4})(-)?(1[0-2]|0[1-9])(?(2)-)(3[0-1]|0[1-9]|[1-2][0-9])$")
+            typesystem.string(
+                pattern="^([0-9]{4})(-)?(1[0-2]|0[1-9])(?(2)-)(3[0-1]|0[1-9]|[1-2][0-9])$")
     }
     required = ['name', 'firstname']
