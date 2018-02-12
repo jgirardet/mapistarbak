@@ -4,7 +4,9 @@ from datetime import date
 
 # Third Party Libraries
 from apistar import typesystem
-from utils.schemas import regular_text, formatted_date, email_schema
+from utils.schemas import email_schema
+from utils.schemas import formatted_date
+from utils.schemas import regular_text
 
 
 class PatientSchema(typesystem.Object):

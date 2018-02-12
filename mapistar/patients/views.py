@@ -4,11 +4,13 @@ from typing import List
 # Third Party Libraries
 from apistar import Response
 from apistar.backends.django_orm import Session
-
-from .schemas import PatientSchema, PatientNoIdSchema
-from apistar.exceptions import NotFound, BadRequest
+from apistar.exceptions import BadRequest
+from apistar.exceptions import NotFound
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+
+from .schemas import PatientNoIdSchema
+from .schemas import PatientSchema
 
 
 def patients_detail(session: Session, patient_id: int) -> PatientSchema:

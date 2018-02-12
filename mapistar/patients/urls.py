@@ -3,7 +3,8 @@ from apistar import Route
 
 from .views import patients_create
 from .views import patients_detail
-from .views import patients_list, patients_update
+from .views import patients_list
+from .views import patients_update
 
 patients_urls = [
     Route('/{patient_id}/', 'GET', patients_detail),

@@ -1,6 +1,8 @@
 # Third Party Libraries
-from apistar import typesystem
+# Standard Libraries
 import typing
+
+from apistar import typesystem
 
 
 class RegularText(typesystem.String):

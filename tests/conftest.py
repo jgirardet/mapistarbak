@@ -6,6 +6,7 @@ from contextlib import contextmanager
 import factory
 import pytest
 from apistar import Component
+from apistar import TestClient
 from apistar.backends.django_orm import DjangoORM
 from apistar.backends.django_orm import Session
 from apistar.frameworks.wsgi import WSGIApp as App
@@ -13,7 +14,6 @@ from app import components
 from config import settings
 from config.urls import routes
 from tests.factories import *
-from apistar import TestClient
 
 
 ################################################

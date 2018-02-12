@@ -1,8 +1,8 @@
 # Third Party Libraries
-import pytest
-
+# Standard Libraries
 from string import capwords
 
+import pytest
 from patients.models import Patient
 
 pytestmark = pytest.mark.django_db
