@@ -5,6 +5,7 @@ import json
 from apistar import reverse_url
 from patients.models import Patient
 from patients.schemas import PatientSchema
+from patients.views import patients_detail, patients_list
 
 # pytestmark = pytest.mark.django_db()
 
@@ -21,13 +22,22 @@ def test_patient_detail(client, patient):
     assert resp == PatientSchema(patient)
 
 
+def test_patient_detail(ss):
+    "fail if false schema to read"
+    a = Patient(name="ùlùlù#", firstname="mkljlij", birthdate="1234-12-12")
+    a.save()
+    b = patients_detail(ss, a.id)
+    c = patients_list(ss)
+
+
 #
 def test_patient_create(client, patientd):
     a = {
-        k: v
-        for k, v in patientd.items()
-        if k in ['name', 'firstname', 'birthdate']
+        'name': "mokmomokok",
+        'firstname': "ljlijjlj ll",
+        'birthdate': "1234-12-12"
     }
+
     response = client.post(reverse_url('patients_create'), a)
     resp = json.loads(response.content.decode())
 
@@ -41,9 +51,10 @@ def test_patient_list(client, patient10):
     assert resp == [PatientSchema(p) for p in Patient.objects.all()]
 
 
-# def test_http_request(app_fix):
-#     """
-#     Testing a view, using the test client with
-#     """
-#     client = TestClient(app_fix)
-#     response = client.get('http://local
+def test_patient_update(patient, client):
+    response = client.put(
+        reverse_url('patients_update', patient_id=patient.id), {
+            "city": "Nevers"
+        })
+    a = Patient.objects.get(id=patient.id)
+    assert a.city == "Nevers"

@@ -9,8 +9,7 @@ from utils.schemas import regular_text
 
 class TestRegularText:
     def test_space(self):
-        a = RegularText('lijlijl okmok')
-        assert a
+        RegularText('lijlijl okmok')
 
     params_test = ["jli#", "fzefzf*", "fzef\tfzef"]
 
@@ -18,10 +17,6 @@ class TestRegularText:
     def test_unallowed(self, mot):
         with pytest.raises(TypeSystemError):
             RegularText(mot)
-
-    def test__not_empty_required(self):
-        with pytest.raises(TypeSystemError):
-            RegularText('')
 
     def test_new_pattern(self):
         """
@@ -65,9 +60,13 @@ class TestEmail:
             'alain88@sfr.fr',
             'malletau_relie@dbmail.com',
             'chauvetrene@mon-nier.fr',
-            'bouch-et_andr²e@thibault.org',
-            'catherinemarch and@club-internet.fr',
-            'mjulien@tisc ali.fr',
+            'bouch-et_andre@thibault.org',
+            'catherinemarchand@club-internet.fr',
+            'mjulien@tiscali.fr',
         ]
         for i in a:
-            EmailSc hema(i)
+            EmailSchema(i)
+
+    def test_email_unallowed(self):
+        with pytest.raises(TypeSystemError):
+            EmailSchema('fze#fze@fze.gt')

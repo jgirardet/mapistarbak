@@ -4,13 +4,11 @@ from typing import List
 # Third Party Libraries
 from apistar import Response
 from apistar.backends.django_orm import Session
-from apistar.exceptions import BadRequest
-from apistar.exceptions import NotFound
+from apistar.exceptions import NotFound, BadRequest
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
-from .schemas import PatientNoIdSchema
-from .schemas import PatientSchema
+from .schemas import PatientSchema, PatientCreateSchema, PatientUpdateSchema, PatientWriteSchema
 
 
 def patients_detail(session: Session, patient_id: int) -> PatientSchema:
@@ -24,18 +22,20 @@ def patients_detail(session: Session, patient_id: int) -> PatientSchema:
     return PatientSchema(pat)
 
 
-def patients_create(session: Session, patient: PatientNoIdSchema) -> Response:
+def patients_create(session: Session,
+                    patient: PatientCreateSchema) -> Response:
     """
     create patients
     """
+    print(PatientCreateSchema.properties)
     new_patient = session.Patient.objects.create(**patient)
     return Response(PatientSchema(new_patient), status=201)
 
 
-def patients_update(session: Session, patient: PatientNoIdSchema, patient_id: int) -> PatientSchema:
+def patients_update(session: Session, patient_id: int,
+                    patient: PatientUpdateSchema) -> PatientSchema:
     """
     modify patients
-    patient_id: l'id du patient
     """
     a = session.Patient.objects.filter(id=patient_id).update(**patient)
     if not a:
@@ -49,4 +49,5 @@ def patients_list(session: Session) -> List[PatientSchema]:
     List patients
     """
     p = session.Patient.objects.all()
+
     return [PatientSchema(x) for x in p]

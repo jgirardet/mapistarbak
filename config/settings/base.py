@@ -12,7 +12,6 @@ DATABASES = {
 }
 
 INSTALLED_APPS = [
-    'pseudos',
     'patients',
 ]
 
