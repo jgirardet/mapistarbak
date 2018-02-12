@@ -4,24 +4,20 @@ from string import capwords
 # Third Party Libraries
 from django.db import models
 
-CAPWORDS_ATTRS = ('name', 'firstname')
-
 
 class PatientManager(models.Manager):
     """
     custum patient manger to modifie create and update
     """
-    attrs = CAPWORDS_ATTRS
 
     def create(self, **kwargs):
         """
         enhancement
         """
-        # capwors certain fields
-        for i in self.attrs:
-            kwargs[i] = capwords(kwargs[i])
+        kwargs['alive'] = True  # new patients can't be dead
 
         # recall base create
+
         return super(PatientManager, self).create(**kwargs)
 
 
@@ -30,7 +26,7 @@ class Patient(models.Model):
     ase class of patient.&
     Require on ly 3 fields : name, firstname, birthdate
     """
-    attrs = CAPWORDS_ATTRS
+    CAPWORDS_ATTRS = ('name', 'firstname')
     # required Field
     name = models.CharField(max_length=50)
     firstname = models.CharField(max_length=50)
@@ -58,7 +54,7 @@ class Patient(models.Model):
         customizing save method, adds :
         - fore capwords for name et firstanme
         """
-        for i in self.attrs:
+        for i in self.CAPWORDS_ATTRS:
             setattr(self, i, capwords(getattr(self, i)))
 
         super(Patient, self).save(*args, **kwargs)

@@ -4,19 +4,32 @@ from datetime import date
 
 # Third Party Libraries
 from apistar import typesystem
-from utils.schemas import RegularText
+from utils.schemas import regular_text, formatted_date, email_schema
 
 
 class PatientSchema(typesystem.Object):
     properties = {
-        'id':
-            typesystem.Integer,
-        'name':
-            RegularText,
-        'firstname':
-            RegularText,
-        'birthdate':
-            typesystem.string(
-                pattern="^([0-9]{4})(-)?(1[0-2]|0[1-9])(?(2)-)(3[0-1]|0[1-9]|[1-2][0-9])$")
+        'id': typesystem.Integer,
+        'name': regular_text(description="Nom"),
+        'firstname': regular_text(description="Prénom"),
+        'birthdate': formatted_date(description="Date de naissance"),
+        'sexe': typesystem.boolean(description="sexe"),
+        'street': typesystem.string(description="rue"),
+        'postalcode': typesystem.string(
+            description="Code Postal", max_length=5),
+        'city': typesystem.string(description="Ville"),
+        'phonenumber': typesystem.string(description="Numéro de Téléphone"),
+        'email': email_schema(description="email"),
+        'alive': typesystem.boolean(description="vivant ?"),
     }
-    required = ['name', 'firstname']
+    required = ['name', 'firstname', "birthdate"]
+    excluded = []
+
+
+class PatientNoIdSchema(PatientSchema):
+    required = []
+    properties = {
+        key: value
+        for key, value in PatientSchema.properties.items()
+        if key not in ['id']
+    }

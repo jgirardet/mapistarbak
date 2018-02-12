@@ -13,6 +13,7 @@ from app import components
 from config import settings
 from config.urls import routes
 from tests.factories import *
+from apistar import TestClient
 
 
 ################################################
@@ -54,6 +55,11 @@ def app_fix():
     return App(routes=routes, settings=settings.__dict__, components=comp)
 
 
+@pytest.fixture(autouse=True)
+def client():
+    return TestClient(app_fix())
+
+
 ############################################
 #models
 ############################################
@@ -76,7 +82,7 @@ def patientd():
     """
     just a dict, not saved
     """
-    return factory.build(dict, FACTORY_CLASS=FacPatient)
+    return factory.build(dict, FACTORY_CLASS=FacPatient).copy()
 
 
 @pytest.fixture(autouse=True)
@@ -84,7 +90,16 @@ def patient(db):
     """
     return factory mpdele
     """
-    return FacPatient
+    return FacPatient()
+
+
+@pytest.fixture(autouse=True)
+def patient10(db):
+    """
+    return 10 patients
+    """
+
+    return [FacPatient() for i in range(10)]
 
 
 # @pytest.fixture(scope='function', autouse=True)

@@ -13,7 +13,7 @@ def aps_get_object_or_404(klass, *args, **kwargs):
         result = get_object_or_404(klass, *args, **kwargs)
     except Http404 as erreur:
         raise NotFound(erreur)
-
+    print(result)
     return result
 
 
