@@ -1,7 +1,7 @@
-# Third Party Libraries
 # Standard Libraries
 from string import capwords
 
+# Third Party Libraries
 import pytest
 from patients.models import Patient
 

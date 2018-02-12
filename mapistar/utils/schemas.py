@@ -1,7 +1,7 @@
-# Third Party Libraries
 # Standard Libraries
 import typing
 
+# Third Party Libraries
 from apistar import typesystem
 
 
@@ -17,8 +17,7 @@ class RegularText(typesystem.String):
     #     obj.errors['patter'] = "seuls les lettres, - et espaces sont valides"
     #     return obj
     errors = typesystem.String.errors.copy()
-    errors[
-        'pattern'] = "Seuls les lettres, - et espace sont des charactères valides"
+    errors['pattern'] = "Seuls les lettres, - et espace sont des charactères valides"
     min_length = 1
     pattern = r"^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]*$"
     description = "a non empty charfield"

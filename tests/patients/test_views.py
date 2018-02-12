@@ -1,15 +1,10 @@
-# Third Party Libraries
 # Standard Libraries
 import json
 
-import pytest
-from apistar import TestClient
+# Third Party Libraries
 from apistar import reverse_url
 from patients.models import Patient
 from patients.schemas import PatientSchema
-from patients.views import patients_create
-from patients.views import patients_detail
-from patients.views import patients_list
 
 # pytestmark = pytest.mark.django_db()
 

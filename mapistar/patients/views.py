@@ -32,8 +32,7 @@ def patients_create(session: Session, patient: PatientNoIdSchema) -> Response:
     return Response(PatientSchema(new_patient), status=201)
 
 
-def patients_update(session: Session, patient: PatientNoIdSchema,
-                    patient_id: int) -> PatientSchema:
+def patients_update(session: Session, patient: PatientNoIdSchema, patient_id: int) -> PatientSchema:
     """
     modify patients
     patient_id: l'id du patient

@@ -17,8 +17,7 @@ class PatientSchema(typesystem.Object):
         'birthdate': formatted_date(description="Date de naissance"),
         'sexe': typesystem.boolean(description="sexe"),
         'street': typesystem.string(description="rue"),
-        'postalcode': typesystem.string(
-            description="Code Postal", max_length=5),
+        'postalcode': typesystem.string(description="Code Postal", max_length=5),
         'city': typesystem.string(description="Ville"),
         'phonenumber': typesystem.string(description="Numéro de Téléphone"),
         'email': email_schema(description="email"),
@@ -32,6 +31,5 @@ class PatientNoIdSchema(PatientSchema):
     required = []
     properties = {
         key: value
-        for key, value in PatientSchema.properties.items()
-        if key not in ['id']
+        for key, value in PatientSchema.properties.items() if key not in ['id']
     }
