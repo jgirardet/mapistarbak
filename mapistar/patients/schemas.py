@@ -1,7 +1,3 @@
-# Standard Libraries
-from collections import ChainMap
-from datetime import date
-
 # Third Party Libraries
 from apistar import typesystem
 from utils.schemas import email_schema

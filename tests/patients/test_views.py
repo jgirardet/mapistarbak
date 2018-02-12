@@ -5,7 +5,8 @@ import json
 from apistar import reverse_url
 from patients.models import Patient
 from patients.schemas import PatientSchema
-from patients.views import patients_detail, patients_list
+from patients.views import patients_detail
+from patients.views import patients_list
 
 # pytestmark = pytest.mark.django_db()
 
