@@ -3,8 +3,6 @@ import typing
 
 # Third Party Libraries
 from apistar import typesystem
-
-
 """
 Base class for various schemas type
 
@@ -19,8 +17,7 @@ class RegularText(typesystem.String):
     """
 
     errors = typesystem.String.errors.copy()
-    errors[
-        'pattern'] = "Seuls les lettres, - et espace sont des charactères valides"
+    errors['pattern'] = "Seuls les lettres, - et espace sont des charactères valides"
     pattern = r"^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]*$"
     description = "a charfield"
 
