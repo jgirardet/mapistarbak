@@ -616,10 +616,10 @@
         },
         "pipenv-to-requirements": {
             "hashes": [
-                "sha256:96124776bb96da02901c92c68eadb36c05edb11df88d672bd5d8fd5fce748792",
-                "sha256:30a4911356cd65dfc8ab0344e21f25e425581316c108a00497f6297b4e392dcf"
+                "sha256:55e904c6ef16261ce99b6551620a731dae5f74109d2a111139b995ac234ed54a",
+                "sha256:0bb9493296128ce67b747313305a8616bb986b4ca1f55488d5ae9f34b16da3be"
             ],
-            "version": "==0.2.3"
+            "version": "==0.3.1"
         },
         "pluggy": {
             "hashes": [
