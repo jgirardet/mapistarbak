@@ -11,7 +11,7 @@ class PatientSchema(typesystem.Object):
     won't fail if pattern or anything else wrong
     """
     properties = {
-        'id': typesystem.Integer,
+        'id': typesystem.integer(description="Patient id"),
         'name': typesystem.string(description="Nom"),
         'firstname': typesystem.string(description="Prénom"),
         'birthdate': typesystem.string(description="Date de naissance"),
@@ -27,7 +27,10 @@ class PatientSchema(typesystem.Object):
 
 
 class PatientWriteSchema(PatientSchema):
-    "write schema, enforce validation"
+    """"
+    PatientSchema with validation
+    enforce validated date at write time
+    """
     updated_properties = {
         'name': regular_text(description="Nom"),
         'firstname': regular_text(description="Prénom"),
@@ -39,6 +42,10 @@ class PatientWriteSchema(PatientSchema):
 
 
 class PatientCreateSchema(PatientWriteSchema):
+    """
+    Schema to create patients
+    """
+
     properties = {
         k: v
         for k, v in PatientWriteSchema.properties.items()
@@ -53,6 +60,9 @@ class PatientCreateSchema(PatientWriteSchema):
 
 
 class PatientUpdateSchema(PatientWriteSchema):
+    """
+    schema to update patients
+    """
     properties = {
         k: v
         for k, v in PatientSchema.properties.items() if k != 'id'

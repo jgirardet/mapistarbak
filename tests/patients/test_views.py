@@ -7,8 +7,18 @@ from patients.models import Patient
 from patients.schemas import PatientSchema
 from patients.views import patients_detail
 from patients.views import patients_list
+from patients.views import patients_update
+from apistar.exceptions import NotFound
+import pytest
 
-# pytestmark = pytest.mark.django_db()
+
+# test read write
+def test_patient_correpted_data(ss):
+    "should not fail with corrupted date, because of readonly schema"
+    a = Patient(name="ùlùlù#", firstname="mkljlij", birthdate="1234-12-12")
+    a.save()
+    b = patients_detail(ss, a.id)
+    c = patients_list(ss)
 
 
 # patients_detail
@@ -16,19 +26,17 @@ def test_patient_detail(client, patient):
     """
     Testing a view, using the test client with
     """
-    print(patient)
     response = client.get(
         reverse_url('patients_detail', patient_id=patient.id))
     resp = json.loads(response.content.decode())
     assert resp == PatientSchema(patient)
 
 
-def test_patient_detail(ss):
-    "fail if false schema to read"
-    a = Patient(name="ùlùlù#", firstname="mkljlij", birthdate="1234-12-12")
-    a.save()
-    b = patients_detail(ss, a.id)
-    c = patients_list(ss)
+def test_detail_not_found(ss, patient):
+    deleted = patient.id
+    patient.delete()
+    with pytest.raises(NotFound):
+        patients_detail(ss, deleted)
 
 
 #
@@ -59,3 +67,10 @@ def test_patient_update(patient, client):
         })
     a = Patient.objects.get(id=patient.id)
     assert a.city == "Nevers"
+
+
+def test_patient_update_raises_not_found(patient, ss):
+    a = patient.id
+    patient.delete()
+    with pytest.raises(NotFound):
+        patients_update(ss, a, PatientSchema())
