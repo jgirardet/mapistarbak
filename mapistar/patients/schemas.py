@@ -48,8 +48,7 @@ class PatientCreateSchema(PatientWriteSchema):
 
     properties = {
         k: v
-        for k, v in PatientWriteSchema.properties.items()
-        if k not in ['id', 'alive']
+        for k, v in PatientWriteSchema.properties.items() if k not in ['id', 'alive']
     }
 
     required = [
@@ -63,9 +62,6 @@ class PatientUpdateSchema(PatientWriteSchema):
     """
     schema to update patients
     """
-    properties = {
-        k: v
-        for k, v in PatientSchema.properties.items() if k != 'id'
-    }
+    properties = {k: v for k, v in PatientSchema.properties.items() if k != 'id'}
 
     required = []
