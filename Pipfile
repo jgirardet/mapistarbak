@@ -36,3 +36,5 @@ apistar = {git = "https://github.com/audiolion/apistar.git", editable=true}
 apistar-shell = "*"
 Django = "*"
 "psycopg2" = "*"
+"iso8601" = "*"
+python-dateutil = "*"
