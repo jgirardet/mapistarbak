@@ -1,7 +1,11 @@
+# Standard Libraries
+import typing
+
+# Third Party Libraries
+from apistar.backends.django_orm import Session
+from apistar.interfaces import Auth
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from apistar.interfaces import Auth
-import typing
 
 STATUT = ['docteur', 'secrétaire', 'interne', 'remplaçant']
 

@@ -16,6 +16,7 @@ class Env(environment.Environment):
         'DB_USER': typesystem.string(default=''),
         'DB_PASSWORD': typesystem.string(default=''),
         'SECRET_KEY': typesystem.string(default='please_change_it'),
+        'JWT_SECRET': typesystem.string(default='please_change_it'),
         'DEBUG': typesystem.boolean(default=True),
     }
 

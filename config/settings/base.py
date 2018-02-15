@@ -1,7 +1,8 @@
-from .get_env import env
-from users.authen import BasicAuthentication, IsMyAuthenticated, TokenAuthentication
-from apistar.authentication import Authenticated
+# Third Party Libraries
 from apistar.permissions import IsAuthenticated
+from users.authentication import MapistarJWTAuthentication
+
+from .get_env import env
 
 DATABASES = {
     'default': {
@@ -37,11 +38,16 @@ AUTH_USER_MODEL = 'users.User'
 SECRET_KEY = env['SECRET_KEY']
 
 AUTHENTICATION = [
-    TokenAuthentication(),
+    MapistarJWTAuthentication(),
 ]
 PERMISSIONS = [
-    IsMyAuthenticated(),
+    IsAuthenticated(),
 ]
+JWT = {'SECRET': env['JWT_SECRET']}
 
 # added for manage.py only
 DEBUG = env['DEBUG']
+
+USE_TZ = True
+
+TIME_ZONE = "Europe/Paris"

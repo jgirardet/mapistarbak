@@ -1,18 +1,18 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "171cc6c7865bafa2cdec8de2570ab782c923e04079f1b42eac2df7707d55cf1f"
+            "sha256": "79af18362f684da883ef0cca9551a23a9bb6be742f1894cd374e2cde061cfb47"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
-            "implementation_version": "3.6.3",
+            "implementation_version": "3.6.4",
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "4.4.0-77-generic",
+            "platform_release": "4.14.15-1-ARCH",
             "platform_system": "Linux",
-            "platform_version": "#98-Ubuntu SMP Wed Apr 26 08:34:02 UTC 2017",
-            "python_full_version": "3.6.3",
+            "platform_version": "#1 SMP PREEMPT Tue Jan 23 21:49:25 UTC 2018",
+            "python_full_version": "3.6.4",
             "python_version": "3.6",
             "sys_platform": "linux"
         },
@@ -30,6 +30,13 @@
             "editable": true,
             "git": "https://github.com/audiolion/apistar.git",
             "ref": "f91a6dfc13db64d85036693ff278e2b1b2fb4b59"
+        },
+        "apistar-jwt": {
+            "hashes": [
+                "sha256:db58a5f0a81451d9ad31b0259cb11b0c750921e58b35c74280970dee9f46d719",
+                "sha256:2358fd3950cdcb5696ced99bba06924aa1a161b6f7874cfb384fbb49af789820"
+            ],
+            "version": "==0.2.1"
         },
         "apistar-shell": {
             "hashes": [
@@ -107,14 +114,6 @@
                 "sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"
             ],
             "version": "==0.2.0"
-        },
-        "iso8601": {
-            "hashes": [
-                "sha256:210e0134677cc0d02f6028087fee1df1e1d76d372ee1db0bf30bf66c5c1c89a3",
-                "sha256:bbbae5fb4a7abfe71d4688fd64bff70b91bbd74ef6a99d964bab18f7fdf286dd",
-                "sha256:49c4b20e1f38aa5cf109ddcd39647ac419f928512c869dc01d5c7098eddede82"
-            ],
-            "version": "==0.1.12"
         },
         "itypes": {
             "hashes": [
@@ -238,19 +237,19 @@
             ],
             "version": "==2.2.0"
         },
+        "pyjwt": {
+            "hashes": [
+                "sha256:a4e5f1441e3ca7b382fd0c0b416777ced1f97c64ef0c33bfa39daf38505cfd2f",
+                "sha256:500be75b17a63f70072416843dc80c8821109030be824f4d14758f114978bae7"
+            ],
+            "version": "==1.5.3"
+        },
         "pytest": {
             "hashes": [
                 "sha256:95fa025cd6deb5d937e04e368a00552332b58cae23f63b76c8c540ff1733ab6d",
                 "sha256:6074ea3b9c999bd6d0df5fa9d12dd95ccd23550df2a582f5f5b848331d2e82ca"
             ],
             "version": "==3.4.0"
-        },
-        "python-dateutil": {
-            "hashes": [
-                "sha256:95511bae634d69bc7329ba55e646499a842bc4ec342ad54a8cdb65645a0aad3c",
-                "sha256:891c38b2a02f5bb1be3e4793866c8df49c7d19baabf9c1bad62547e0b4866aca"
-            ],
-            "version": "==2.6.1"
         },
         "pytz": {
             "hashes": [
@@ -638,10 +637,10 @@
         },
         "pipenv-to-requirements": {
             "hashes": [
-                "sha256:96124776bb96da02901c92c68eadb36c05edb11df88d672bd5d8fd5fce748792",
-                "sha256:30a4911356cd65dfc8ab0344e21f25e425581316c108a00497f6297b4e392dcf"
+                "sha256:55e904c6ef16261ce99b6551620a731dae5f74109d2a111139b995ac234ed54a",
+                "sha256:0bb9493296128ce67b747313305a8616bb986b4ca1f55488d5ae9f34b16da3be"
             ],
-            "version": "==0.2.3"
+            "version": "==0.3.1"
         },
         "pluggy": {
             "hashes": [
@@ -861,7 +860,6 @@
                 "sha256:39d88b533b422825d644087a21e78c45cf5af0ef7a99a1fc9fbb7b481e5c85b0",
                 "sha256:02f8102c2436bb03b3ee6dede1919d1dac8a427541652e5ec95171ec8adbc93a"
             ],
-            "markers": "python_version != '3.2'",
             "version": "==15.1.0"
         },
         "virtualenv-clone": {
