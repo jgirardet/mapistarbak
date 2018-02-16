@@ -1,6 +1,6 @@
 {
+  "tests/patients/test_models.py::TestPatient::()::test_string[n=1/1, r=1/10]": true,
   "tests/patients/test_schemas.py::test_email_regex": true,
-  "tests/patients/test_views.py::test_patient_detail": true,
   "tests/utils/test_django_utils.py": true,
   "tests/utils/test_django_utils.py::TestObject::()::test_good": true,
   "tests/utils/test_schemas.py::TestRegularText::()::test__not_empty_required": true

@@ -27,6 +27,7 @@ django-reset-migrations = "*"
 django-extensions = "*"
 pytest-env-info = "*"
 factory-boy = "*"
+pytest-timeit = "*"
 
 
 [packages]

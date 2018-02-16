@@ -11,6 +11,8 @@ from patients.views import patients_detail
 from patients.views import patients_list
 from patients.views import patients_update
 
+pytestmark = pytest.mark.timeit(n=1, r=1)
+
 
 # test read write
 def test_patient_correpted_data(ss):
@@ -19,6 +21,16 @@ def test_patient_correpted_data(ss):
     a.save()
     b = patients_detail(ss, a.id)
     c = patients_list(ss)
+
+
+def test_patient_detail2(client, patient):
+    """
+    Testing a view, using the test client with
+    """
+    response = client.get(
+        reverse_url('patients_detail', patient_id=patient.id))
+    resp = json.loads(response.content.decode())
+    assert resp == PatientSchema(patient)
 
 
 # patients_detail
@@ -32,14 +44,6 @@ def test_patient_detail(client, patient):
     assert resp == PatientSchema(patient)
 
 
-def test_detail_not_found(ss, patient):
-    deleted = patient.id
-    patient.delete()
-    with pytest.raises(NotFound):
-        patients_detail(ss, deleted)
-
-
-#
 def test_patient_create(client, patientd):
     a = {
         'name': "mokmomokok",
@@ -54,6 +58,16 @@ def test_patient_create(client, patientd):
     assert Patient.objects.get(id=resp['id']).name.lower() == a['name'].lower()
 
 
+def test_detail_not_found(ss, patient):
+    deleted = patient.id
+    patient.delete()
+    with pytest.raises(NotFound):
+        patients_detail(ss, deleted)
+
+
+#
+
+
 def test_patient_list(client, patient10):
     response = client.get(reverse_url('patients_list'))
     resp = json.loads(response.content.decode())
@@ -62,9 +76,8 @@ def test_patient_list(client, patient10):
 
 def test_patient_update(patient, client):
     response = client.put(
-        reverse_url('patients_update', patient_id=patient.id), {
-            "city": "Nevers"
-        })
+        reverse_url('patients_update', patient_id=patient.id),
+        {"city": "Nevers"})
     a = Patient.objects.get(id=patient.id)
     assert a.city == "Nevers"
 
@@ -74,3 +87,14 @@ def test_patient_update_raises_not_found(patient, ss):
     patient.delete()
     with pytest.raises(NotFound):
         patients_update(ss, a, PatientSchema())
+
+
+# patients_detail
+def test_patient_detail3(client, patient):
+    """
+    Testing a view, using the test client with
+    """
+    response = client.get(
+        reverse_url('patients_detail', patient_id=patient.id))
+    resp = json.loads(response.content.decode())
+    assert resp == PatientSchema(patient)

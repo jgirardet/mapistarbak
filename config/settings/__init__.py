@@ -9,6 +9,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
 
 try:
     os.environ['PYTEST_VER']  #given by pytest-env-info
+    print('helfgfffffffffffffffffffffffffffffffffffffffffffffff')
 except KeyError:
     if env['DEBUG'] == True:
         print('local config loaded')

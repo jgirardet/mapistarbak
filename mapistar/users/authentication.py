@@ -9,14 +9,11 @@ from apistar_jwt.authentication import get_jwt
 from apistar_jwt.exceptions import AuthenticationFailed
 from django.core.exceptions import ObjectDoesNotExist
 
-# from .models import user_type
-
 
 class AuthUser(Auth):
     def __init__(self, user, token=None):
         self.user = user
         self.token = token
-        print(user.username, user.is_active)
 
     def is_authenticated(self) -> bool:
         return True

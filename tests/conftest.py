@@ -14,11 +14,15 @@ from app import components
 from config import settings
 from config.urls import routes
 from tests.factories import *
-
+from users.models import User
+from apistar_jwt.token import JWT
+from django.utils import timezone
 
 ################################################
 #APISTAR tools
 ################################################
+
+
 @pytest.fixture(autouse=True)
 def ss(db):
     """
@@ -39,7 +43,7 @@ def get_ss(backend: DjangoORM) -> typing.Generator[Session, None, None]:
     yield Session(backend)
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=True, scope='session')
 def app_fix():
     """
     fixture for apistar app
@@ -55,10 +59,40 @@ def app_fix():
     return App(routes=routes, settings=settings.__dict__, components=comp)
 
 
-@pytest.fixture(autouse=True)
-def client():
-    return TestClient(app_fix())
+# @pytest.fixture(autouse=True)
+# def user(django_user_model):
+#     a = django_user_model.objects.create(
+#         username="someone", password="something")
+#     return a
 
+
+@pytest.fixture(autouse=True)
+def user(db):
+    # a = User.objects.create(username="someone", password="something")
+    return User.objects.create(username="someone", password="something")
+
+
+@pytest.fixture(autouse=True)
+def client(user):
+    SECRET = settings.__dict__['JWT'].get('SECRET')
+
+    payload = {
+        'user_id': user.id,
+        'iat': timezone.now(),
+        'exp':
+        timezone.now() + timezone.timedelta(seconds=60)  #  ends in 60 minutes
+    }
+
+    token = JWT.encode(payload, secret=SECRET)
+    t = TestClient(app_fix())
+    t.headers['Authorization'] = "Bearer " + token
+    return t
+
+
+# @pytest.fixture(autouse=True, scope='session')
+# def client():
+#     t = TestClient(app_fix())
+#     return t
 
 ############################################
 #models
@@ -77,7 +111,7 @@ PAtients
 """
 
 
-@pytest.fixture(autouse=True, scope='function')
+@pytest.fixture(autouse=True, scope='session')
 def patientd():
     """
     just a dict, not saved
@@ -89,7 +123,9 @@ def patientd():
 def patient(db):
     """
     return factory mpdele
+
     """
+
     return FacPatient()
 
 
