@@ -18,6 +18,7 @@ from users.models import User
 from apistar_jwt.token import JWT
 from django.utils import timezone
 from users.authentication import AuthUser
+from users.utils import get_payload
 
 ################################################
 #APISTAR tools
@@ -80,25 +81,16 @@ def auth_user(user):
 
 @pytest.fixture(autouse=True)
 def client(user):
+    """
+    Authenticated client
+    """
     SECRET = settings.__dict__['JWT'].get('SECRET')
 
-    payload = {
-        'user_id': user.id,
-        'iat': timezone.now(),
-        'exp':
-        timezone.now() + timezone.timedelta(seconds=60)  #  ends in 60 minutes
-    }
+    token = JWT.encode(get_payload(user, {'seconds': 60}), secret=SECRET)
+    c = TestClient(app_fix())
+    c.headers['Authorization'] = "Bearer " + token
+    return c
 
-    token = JWT.encode(payload, secret=SECRET)
-    t = TestClient(app_fix())
-    t.headers['Authorization'] = "Bearer " + token
-    return t
-
-
-# @pytest.fixture(autouse=True, scope='session')
-# def client():
-#     t = TestClient(app_fix())
-#     return t
 
 ############################################
 #models

@@ -5,10 +5,7 @@ from config.settings import base
 from apistar_jwt.token import JWT
 from apistar_jwt.exceptions import AuthenticationFailed
 from apistar.exceptions import BadRequest, Forbidden
-import apistar_jwt
 from unittest.mock import MagicMock
-from unittest.mock import patch
-import users
 
 
 def testautheticate_pass_with_valid_jwt(user, ss):
@@ -26,7 +23,7 @@ def test_authenticate_fails_without_valid_date_payload(user, ss):
     header = "Bearer " + perimed_jwt
     engine = MapistarJWTAuthentication()
     with pytest.raises(AuthenticationFailed):
-        authed = engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, base.__dict__, ss)
 
 
 def test_invalid_user(user, ss):
@@ -36,7 +33,7 @@ def test_invalid_user(user, ss):
     user.delete()
     engine = MapistarJWTAuthentication()
     with pytest.raises(BadRequest):
-        authed = engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, base.__dict__, ss)
 
 
 def test_user_is_not_active(user, ss):
@@ -47,7 +44,7 @@ def test_user_is_not_active(user, ss):
     user.save()
     engine = MapistarJWTAuthentication()
     with pytest.raises(Forbidden):
-        authed = engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, base.__dict__, ss)
 
 
 def test_payload_returned_is_empty(user, ss, monkeypatch):
@@ -63,7 +60,7 @@ def test_payload_returned_is_empty(user, ss, monkeypatch):
 
     engine = MapistarJWTAuthentication()
     with pytest.raises(AuthenticationFailed):
-        authed = engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, base.__dict__, ss)
 
 
 class TestAuthUser:

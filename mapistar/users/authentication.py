@@ -30,7 +30,6 @@ class MapistarJWTAuthentication():
                      db: Db):
         #Firs we check token validity
         jwt = get_jwt(authorization, settings)
-        print("hhhhh", jwt)
         if jwt.payload == {}:
             raise AuthenticationFailed("payload non validé")
 
