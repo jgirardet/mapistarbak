@@ -17,6 +17,7 @@ from tests.factories import *
 from users.models import User
 from apistar_jwt.token import JWT
 from django.utils import timezone
+from users.authentication import AuthUser
 
 ################################################
 #APISTAR tools
@@ -70,6 +71,11 @@ def app_fix():
 def user(db):
     # a = User.objects.create(username="someone", password="something")
     return User.objects.create(username="someone", password="something")
+
+
+@pytest.fixture(autouse=True)
+def auth_user(user):
+    return AuthUser(user)
 
 
 @pytest.fixture(autouse=True)

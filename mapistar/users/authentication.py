@@ -4,10 +4,10 @@ from apistar import http
 from apistar.backends.django_orm import Session as Db
 from apistar.exceptions import BadRequest
 from apistar.exceptions import Forbidden
-from apistar.interfaces import Auth
 from apistar_jwt.authentication import get_jwt
 from apistar_jwt.exceptions import AuthenticationFailed
 from django.core.exceptions import ObjectDoesNotExist
+from apistar.interfaces import Auth
 
 
 class AuthUser(Auth):
@@ -30,6 +30,7 @@ class MapistarJWTAuthentication():
                      db: Db):
         #Firs we check token validity
         jwt = get_jwt(authorization, settings)
+        print("hhhhh", jwt)
         if jwt.payload == {}:
             raise AuthenticationFailed("payload non validé")
 

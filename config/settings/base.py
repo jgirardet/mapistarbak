@@ -43,7 +43,7 @@ AUTHENTICATION = [
 PERMISSIONS = [
     IsAuthenticated(),
 ]
-JWT = {'SECRET': env['JWT_SECRET']}
+JWT = {'SECRET': env['JWT_SECRET'], 'PAYLOAD_DURATION': {'seconds': 300}}
 
 # added for manage.py only
 DEBUG = env['DEBUG']
