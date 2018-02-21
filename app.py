@@ -10,6 +10,8 @@ import os
 import django
 from apistar.backends import django_orm
 from apistar.frameworks.wsgi import WSGIApp as App
+from apistar_shell import commands as apistar_shell_commands
+from apistar_shell import components as apistar_shell_components
 from config.django import settings as django_settings
 from django.apps import apps
 
@@ -25,18 +27,16 @@ apistar_settings = importlib.import_module('config.settings')
 routes = importlib.import_module('config.urls').routes
 
 # collect All components
-components = []
-components += django_orm.components
+components = [*django_orm.components, *apistar_shell_components.components]
 
 # Merge apistar and django settings, so everything is in Settings component
 # For testing and doc, this one bellow schould be imported
 settings = {**apistar_settings.__dict__, **django_settings.__dict__}
 
+# Collect all commands
+commands = [*django_orm.commands, *apistar_shell_commands.django_commands]
 app = App(
-    routes=routes,
-    settings=settings,
-    commands=django_orm.commands,
-    components=components)
+    routes=routes, settings=settings, commands=commands, components=components)
 
 if __name__ == '__main__':
     app.main()

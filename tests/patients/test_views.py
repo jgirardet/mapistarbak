@@ -19,8 +19,8 @@ def test_patient_correpted_data(ss):
     "should not fail with corrupted date, because of readonly schema"
     a = Patient(name="ùlùlù#", firstname="mkljlij", birthdate="1234-12-12")
     a.save()
-    b = patients_detail(ss, a.id)
-    c = patients_list(ss)
+    patients_detail(ss, a.id)
+    patients_list(ss)
 
 
 # patients_detail

@@ -23,6 +23,7 @@ class Env(environment.Environment):
         'SECRET_KEY': typesystem.string(default='please_change_it'),
         'JWT_SECRET': typesystem.string(default='please_change_it'),
         'DEBUG': typesystem.boolean(default=True),
+        'TEST_RUNNING': typesystem.boolean(default=False)
     }
 
 

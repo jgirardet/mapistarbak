@@ -29,7 +29,6 @@ def patients_create(session: Session,
     """
     create patients
     """
-    print(PatientCreateSchema.properties)
     new_patient = session.Patient.objects.create(**patient)
     return Response(PatientSchema(new_patient), status=201)
 

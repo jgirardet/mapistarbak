@@ -6,7 +6,7 @@ verify_ssl = true
 
 [dev-packages]
 
-"flake8" = "*"
+flake8 = "*"
 pycodestyle = "*"
 yapf = "*"
 isort = "*"
@@ -17,24 +17,24 @@ pytest = "*"
 pytest-cov = "*"
 tox = "*"
 pipenv-to-requirements = "*"
-"flake8-coding" = "*"
-"flake8-comprehensions" = "*"
+flake8-coding = "*"
+flake8-comprehensions = "*"
 sphinx = "*"
 sphinx-autobuild = "*"
 pytest-pythonpath = "*"
 pytest-django = "*"
 django-reset-migrations = "*"
 django-extensions = "*"
-pytest-env-info = "*"
 factory-boy = "*"
 pytest-timeit = "*"
+pytest-env ="*"
+apistar-shell = "*"
 
 
 [packages]
 
 pbr = ">=3.0"
 apistar = {git = "https://github.com/audiolion/apistar.git", editable=true}
-apistar-shell = "*"
 django = "*"
-"psycopg2" = "*"
+"psycopg2-binary" = "*"
 apistar-jwt = "*"

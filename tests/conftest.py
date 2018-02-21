@@ -14,7 +14,6 @@ from apistar_jwt.token import JWT
 from app import components
 from app import settings
 from config.urls import routes
-from django.utils import timezone
 from tests.factories import *
 from users.authentication import AuthUser
 from users.models import User
@@ -25,7 +24,7 @@ from users.utils import get_payload
 ################################################
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def ss(db):
     """
     session from django backend
@@ -45,7 +44,7 @@ def get_ss(backend: DjangoORM) -> typing.Generator[Session, None, None]:
     yield Session(backend)
 
 
-@pytest.fixture(autouse=True, scope='session')
+@pytest.fixture(scope='session')
 def app_fix():
     """
     fixture for apistar app
@@ -61,18 +60,18 @@ def app_fix():
     return App(routes=routes, settings=settings, components=comp)
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def user(db):
     # a = User.objects.create(username="someone", password="something")
     return User.objects.create(username="someone", password="something")
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def auth_user(user):
     return AuthUser(user)
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def client(user):
     """
     Authenticated client
@@ -102,7 +101,7 @@ PAtients
 """
 
 
-@pytest.fixture(autouse=True, scope='session')
+@pytest.fixture(scope='session')
 def patientd():
     """
     just a dict, not saved
@@ -110,7 +109,7 @@ def patientd():
     return factory.build(dict, FACTORY_CLASS=FacPatient).copy()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def patient(db):
     """
     return factory mpdele
@@ -120,7 +119,7 @@ def patient(db):
     return FacPatient()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def patient10(db):
     """
     return 10 patients

@@ -1,15 +1,12 @@
-import os
 from config.get_env import env
 
-try:
-    os.environ['PYTEST_VER']  #given by pytest-env-info
-except KeyError:
-    if env['DEBUG'] == True:
+if not env['TEST_RUNNING']:
+    if env['DEBUG']:
         print("\n ## Django LOCAL config loaded ###  \n")
         from .local import *
     else:
         print("\n ## Django PRODUCTION config loaded ###  \n")
-        from .prod import *
+    from .prod import *
 else:
     print("\n ## Django TESTING config loaded ###  \n")
     from .testing import *

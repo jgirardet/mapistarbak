@@ -2,10 +2,13 @@
 import json
 
 # Third Party Libraries
+import pytest
 from apistar import TestClient
 from apistar import reverse_url
 from app import settings
 from users.models import User
+
+pytestmark = pytest.mark.django_db
 
 
 def test_login_pass(app_fix):
