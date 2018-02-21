@@ -7,4 +7,5 @@ from .base import *
 #     },
 # }
 
+#POSTGRE
 DATABASES['default']['NAME'] = 'test'

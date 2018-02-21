@@ -23,7 +23,8 @@ import sys
 
 # Third Party Libraries
 # ----Django settings
-import config.settings
+# import config.settings
+from app import settings
 
 # -- General configuration ------------------------------------------------
 
@@ -143,17 +144,15 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('index', 'mapistar.tex',
-     'mapistar Documentation',
-     'Jimmy Girardet', 'manual'),
+    ('index', 'mapistar.tex', 'mapistar Documentation', 'Jimmy Girardet',
+     'manual'),
 ]
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [('index', 'mapistar',
-              'mapistar Documentation',
+man_pages = [('index', 'mapistar', 'mapistar Documentation',
               ['Jimmy Girardet'], 1)]
 
 # -- Options for Texinfo output -------------------------------------------
@@ -162,10 +161,8 @@ man_pages = [('index', 'mapistar',
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'mapistar',
-     'mapistar Documentation',
-     'Jimmy Girardet', 'mapistar',
-     'One line description of project.', 'Miscellaneous'),
+    ('index', 'mapistar', 'mapistar Documentation', 'Jimmy Girardet',
+     'mapistar', 'One line description of project.', 'Miscellaneous'),
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.

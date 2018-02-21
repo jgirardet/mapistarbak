@@ -6,6 +6,11 @@ import sys
 from apistar import environment
 from apistar import typesystem
 
+# import os
+# from django.conf import settings
+# from django.apps import apps
+# import django
+
 
 class Env(environment.Environment):
     properties = {
@@ -23,7 +28,13 @@ class Env(environment.Environment):
 
 env = Env()
 
-# add app folder to sys.path when imported in app.py
+# add app folder to sys.path
 PROJECT_ROOT = pathlib.Path(__file__).absolute()
-PROJECT_ROOT = PROJECT_ROOT.parents[2] / "mapistar"
+PROJECT_ROOT = PROJECT_ROOT.parents[1] / "mapistar"
 sys.path.insert(0, str(PROJECT_ROOT))
+
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.django.settings')
+# if not apps.ready:
+#     print("aaaaaaaaaaaaa", settings.configured)
+#     settings.configure()
+#     django.setup()

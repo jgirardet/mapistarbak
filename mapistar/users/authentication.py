@@ -4,14 +4,16 @@ from apistar import http
 from apistar.backends.django_orm import Session as Db
 from apistar.exceptions import BadRequest
 from apistar.exceptions import Forbidden
+from apistar.interfaces import Auth
 from apistar_jwt.authentication import get_jwt
 from apistar_jwt.exceptions import AuthenticationFailed
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-from apistar.interfaces import Auth
 
 
 class AuthUser(Auth):
-    def __init__(self, user, token=None):
+    def __init__(self, user: get_user_model(), token=None):
+        # def __init__(self, user, token=None):
         self.user = user
         self.token = token
 

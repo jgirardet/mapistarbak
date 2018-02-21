@@ -1,25 +1,25 @@
-from config.settings import test as test_settings
-from apistar import reverse_url
+# Standard Libraries
 import json
+
+# Third Party Libraries
 from apistar import TestClient
+from apistar import reverse_url
+from app import settings
 from users.models import User
 
 
 def test_login_pass(app_fix):
     User.objects.create_user(username='hh', password='hh')
     response = TestClient(app_fix).post(
-        reverse_url(
-            'login', user="hh", pwd="hh", settings=test_settings.__dict__))
+        reverse_url('login', user="hh", pwd="hh", settings=settings))
     assert response.status_code == 201
 
 
 def test_login_forbiden_bad_user(app_fix):
     response = TestClient(app_fix).post(
         reverse_url(
-            'login',
-            user="fzefzefzefzef",
-            pwd="fzefzefzef",
-            settings=test_settings.__dict__))
+            'login', user="fzefzefzefzef", pwd="fzefzefzef",
+            settings=settings))
     assert response.status_code == 403
 
 
@@ -28,6 +28,5 @@ def test_login_forbiden_inactive_user(app_fix):
     a.is_active = False
     a.save()
     response = TestClient(app_fix).post(
-        reverse_url(
-            'login', user="hh", pwd="hh", settings=test_settings.__dict__))
+        reverse_url('login', user="hh", pwd="hh", settings=settings))
     assert response.status_code == 403

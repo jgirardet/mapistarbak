@@ -10,14 +10,14 @@ from apistar import TestClient
 from apistar.backends.django_orm import DjangoORM
 from apistar.backends.django_orm import Session
 from apistar.frameworks.wsgi import WSGIApp as App
-from app import components
-from config import settings
-from config.urls import routes
-from tests.factories import *
-from users.models import User
 from apistar_jwt.token import JWT
+from app import components
+from app import settings
+from config.urls import routes
 from django.utils import timezone
+from tests.factories import *
 from users.authentication import AuthUser
+from users.models import User
 from users.utils import get_payload
 
 ################################################
@@ -37,7 +37,7 @@ def ss(db):
     #     print(dir(ss))
     #     yield ss
 
-    return Session(DjangoORM(settings.__dict__))
+    return Session(DjangoORM(settings))
 
 
 @contextmanager
@@ -58,14 +58,7 @@ def app_fix():
         if c.cls is Session:
             c = Component(Session, init=get_ss, preload=False)
         comp.append(c)
-    return App(routes=routes, settings=settings.__dict__, components=comp)
-
-
-# @pytest.fixture(autouse=True)
-# def user(django_user_model):
-#     a = django_user_model.objects.create(
-#         username="someone", password="something")
-#     return a
+    return App(routes=routes, settings=settings, components=comp)
 
 
 @pytest.fixture(autouse=True)
@@ -84,7 +77,7 @@ def client(user):
     """
     Authenticated client
     """
-    SECRET = settings.__dict__['JWT'].get('SECRET')
+    SECRET = settings['JWT'].get('SECRET')
 
     token = JWT.encode(get_payload(user, {'seconds': 60}), secret=SECRET)
     c = TestClient(app_fix())

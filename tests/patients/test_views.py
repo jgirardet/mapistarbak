@@ -23,16 +23,6 @@ def test_patient_correpted_data(ss):
     c = patients_list(ss)
 
 
-def test_patient_detail2(client, patient):
-    """
-    Testing a view, using the test client with
-    """
-    response = client.get(
-        reverse_url('patients_detail', patient_id=patient.id))
-    resp = json.loads(response.content.decode())
-    assert resp == PatientSchema(patient)
-
-
 # patients_detail
 def test_patient_detail(client, patient):
     """
@@ -87,14 +77,3 @@ def test_patient_update_raises_not_found(patient, ss):
     patient.delete()
     with pytest.raises(NotFound):
         patients_update(ss, a, PatientSchema())
-
-
-# patients_detail
-def test_patient_detail3(client, patient):
-    """
-    Testing a view, using the test client with
-    """
-    response = client.get(
-        reverse_url('patients_detail', patient_id=patient.id))
-    resp = json.loads(response.content.decode())
-    assert resp == PatientSchema(patient)

@@ -1,50 +1,54 @@
+# Standard Libraries
+from unittest.mock import MagicMock
+
+# Third Party Libraries
 import pytest
+from apistar.exceptions import BadRequest
+from apistar.exceptions import Forbidden
+from apistar_jwt.exceptions import AuthenticationFailed
+from apistar_jwt.token import JWT
+from app import settings
 from users.authentication import MapistarJWTAuthentication
 from users.utils import get_payload
-from config.settings import base
-from apistar_jwt.token import JWT
-from apistar_jwt.exceptions import AuthenticationFailed
-from apistar.exceptions import BadRequest, Forbidden
-from unittest.mock import MagicMock
 
 
 def testautheticate_pass_with_valid_jwt(user, ss):
     valid_jwt = JWT.encode(
-        get_payload(user, {'seconds': 8}), base.__dict__['JWT']['SECRET'])
+        get_payload(user, {'seconds': 8}), settings['JWT']['SECRET'])
     header = "Bearer " + valid_jwt
     engine = MapistarJWTAuthentication()
-    authed = engine.authenticate(header, base.__dict__, ss)
+    authed = engine.authenticate(header, settings, ss)
     assert authed.user == user
 
 
 def test_authenticate_fails_without_valid_date_payload(user, ss):
     perimed_jwt = JWT.encode(
-        get_payload(user, {'seconds': -8}), base.__dict__['JWT']['SECRET'])
+        get_payload(user, {'seconds': -8}), settings['JWT']['SECRET'])
     header = "Bearer " + perimed_jwt
     engine = MapistarJWTAuthentication()
     with pytest.raises(AuthenticationFailed):
-        engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, settings, ss)
 
 
 def test_invalid_user(user, ss):
     valid_jwt = JWT.encode(
-        get_payload(user, {'seconds': 8}), base.__dict__['JWT']['SECRET'])
+        get_payload(user, {'seconds': 8}), settings['JWT']['SECRET'])
     header = "Bearer " + valid_jwt
     user.delete()
     engine = MapistarJWTAuthentication()
     with pytest.raises(BadRequest):
-        engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, settings, ss)
 
 
 def test_user_is_not_active(user, ss):
     valid_jwt = JWT.encode(
-        get_payload(user, {'seconds': 8}), base.__dict__['JWT']['SECRET'])
+        get_payload(user, {'seconds': 8}), settings['JWT']['SECRET'])
     header = "Bearer " + valid_jwt
     user.is_active = False
     user.save()
     engine = MapistarJWTAuthentication()
     with pytest.raises(Forbidden):
-        engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, settings, ss)
 
 
 def test_payload_returned_is_empty(user, ss, monkeypatch):
@@ -55,12 +59,12 @@ def test_payload_returned_is_empty(user, ss, monkeypatch):
 
     monkeypatch.setattr('users.authentication.get_jwt', return_empty_dict)
     valid_jwt = JWT.encode(
-        get_payload(user, {'seconds': 8}), base.__dict__['JWT']['SECRET'])
+        get_payload(user, {'seconds': 8}), settings['JWT']['SECRET'])
     header = "Bearer " + valid_jwt
 
     engine = MapistarJWTAuthentication()
     with pytest.raises(AuthenticationFailed):
-        engine.authenticate(header, base.__dict__, ss)
+        engine.authenticate(header, settings, ss)
 
 
 class TestAuthUser:

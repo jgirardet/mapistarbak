@@ -1,5 +1,7 @@
-from .models import User
+# Third Party Libraries
 from django.utils import timezone
+
+from .models import User
 
 
 def get_payload(user: User, duration: dict) -> dict:
