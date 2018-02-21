@@ -28,6 +28,7 @@ SECRET_KEY = env['SECRET_KEY']
 LOCAL_APPS = [
     'patients',
     'users',
+    'actes',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

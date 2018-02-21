@@ -11,8 +11,6 @@ from patients.views import patients_detail
 from patients.views import patients_list
 from patients.views import patients_update
 
-pytestmark = pytest.mark.timeit(n=1, r=1)
-
 
 # test read write
 def test_patient_correpted_data(ss):
@@ -53,9 +51,6 @@ def test_detail_not_found(ss, patient):
     patient.delete()
     with pytest.raises(NotFound):
         patients_detail(ss, deleted)
-
-
-#
 
 
 def test_patient_list(client, patient10):

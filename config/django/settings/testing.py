@@ -7,5 +7,5 @@ from .base import *
 #     },
 # }
 
-#POSTGRE
+# POSTGRE
 DATABASES['default']['NAME'] = 'test'

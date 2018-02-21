@@ -84,6 +84,15 @@ def client(user):
     return c
 
 
+@pytest.fixture(scope='session')
+def client_anonymous(app_fix):
+    """
+    Anonymous client
+    """
+
+    return TestClient(app_fix)
+
+
 ############################################
 #models
 ############################################

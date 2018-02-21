@@ -30,11 +30,12 @@ def test_authenticate_fails_without_valid_date_payload(user, ss):
         engine.authenticate(header, settings, ss)
 
 
-def test_invalid_user(user, ss):
+def test_invalid_user(ss):
+    a = MagicMock()
+    a.id = 35135135135151
     valid_jwt = JWT.encode(
-        get_payload(user, {'seconds': 8}), settings['JWT']['SECRET'])
+        get_payload(a, {'seconds': 8}), settings['JWT']['SECRET'])
     header = "Bearer " + valid_jwt
-    user.delete()
     engine = MapistarJWTAuthentication()
     with pytest.raises(BadRequest):
         engine.authenticate(header, settings, ss)
@@ -67,12 +68,14 @@ def test_payload_returned_is_empty(user, ss, monkeypatch):
         engine.authenticate(header, settings, ss)
 
 
-class TestAuthUser:
-    def test_is_authenticated_is_True(self, auth_user):
-        assert auth_user.is_authenticated() == True
+# Test AuthUser
+def test_is_authenticated_is_True(auth_user):
+    assert auth_user.is_authenticated() == True
 
-    def test_get_user_id(self, auth_user):
-        assert auth_user.user.id == auth_user.get_user_id()
 
-    def test_get_display_name(self, auth_user):
-        assert auth_user.user.username == auth_user.get_display_name()
+def test_get_user_id(auth_user):
+    assert auth_user.user.id == auth_user.get_user_id()
+
+
+def test_get_display_name(auth_user):
+    assert auth_user.user.username == auth_user.get_display_name()
