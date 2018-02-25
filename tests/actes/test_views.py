@@ -1,7 +1,13 @@
-import pytest
-from actes.views import observation_create, observation_list, observation_update
+# Standard Libraries
 from operator import attrgetter
-from actes.schemas import ObservationSchema, ObservationUpdateSchema
+
+# Third Party Libraries
+import pytest
+from actes.schemas import ObservationSchema
+from actes.schemas import ObservationUpdateSchema
+from actes.views import observation_create
+from actes.views import observation_list
+from actes.views import observation_update
 from apistar.exceptions import BadRequest
 
 

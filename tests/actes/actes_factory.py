@@ -1,9 +1,10 @@
+# Standard Libraries
 import datetime
 import random
 
-from tests.factories import *  #acPatient, FacUser
-
+# Third Party Libraries
 import factory
+from tests.factories import *  # acPatient, FacUser
 
 fk = factory.Faker
 

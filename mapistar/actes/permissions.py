@@ -1,4 +1,6 @@
-from rest_framework.permissions import SAFE_METHODS, BasePermission
+# Third Party Libraries
+from rest_framework.permissions import SAFE_METHODS
+from rest_framework.permissions import BasePermission
 
 
 class OnlyOwnerCanEdit(BasePermission):

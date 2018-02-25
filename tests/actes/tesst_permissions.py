@@ -1,9 +1,10 @@
+# Standard Libraries
 from string import capwords
 
-from django.contrib.auth import get_user_model
-
+# Third Party Libraries
 import pytest
 from actes.models import Observation
+from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APIRequestFactory

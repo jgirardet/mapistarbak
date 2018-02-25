@@ -24,8 +24,7 @@ def patients_detail(session: Session, patient_id: int) -> PatientSchema:
     return PatientSchema(pat)
 
 
-def patients_create(session: Session,
-                    patient: PatientCreateSchema) -> Response:
+def patients_create(session: Session, patient: PatientCreateSchema) -> Response:
     """
     create patients
     """

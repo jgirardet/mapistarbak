@@ -28,14 +28,13 @@ class AuthUser(Auth):
 
 
 class MapistarJWTAuthentication():
-    def authenticate(self, authorization: http.Header, settings: Settings,
-                     db: Db):
-        #Firs we check token validity
+    def authenticate(self, authorization: http.Header, settings: Settings, db: Db):
+        # Firs we check token validity
         jwt = get_jwt(authorization, settings)
         if jwt.payload == {}:
             raise AuthenticationFailed("payload non validé")
 
-        #Get User instance
+        # Get User instance
         user_id = jwt.payload['user_id']
         try:
             user = db.User.objects.get(id=user_id)

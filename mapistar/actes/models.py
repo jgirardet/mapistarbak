@@ -1,7 +1,8 @@
+# Third Party Libraries
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
 from django.db.models import manager
+from django.utils import timezone
 from patients.models import Patient
 
 
@@ -10,14 +11,11 @@ class BaseActe(models.Model):
     Base Abstract class for for differnets actions
     made by usej
     """
-    patient = models.ForeignKey(
-        Patient, related_name="%(class)ss", on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, related_name="%(class)ss", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="%(class)ss",
-        on_delete=models.PROTECT)
+        settings.AUTH_USER_MODEL, related_name="%(class)ss", on_delete=models.PROTECT)
 
     class Meta:
         abstract = True
@@ -28,7 +26,7 @@ class BaseActe(models.Model):
 
     def update(self, **kwargs):
         for k, v in kwargs.items():
-            getattr(self, k)  #raise attributeerror if k not in model
+            getattr(self, k)  # raise attributeerror if k not in model
             setattr(self, k, v)
 
         self.save()

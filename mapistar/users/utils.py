@@ -15,5 +15,5 @@ def get_payload(user: User, duration: dict) -> dict:
         'user_id': user.id,
         'iat': timezone.now(),
         'exp':
-        timezone.now() + timezone.timedelta(**duration)  #  ends in 10 minutes
+            timezone.now() + timezone.timedelta(**duration)  # ends in 10 minutes
     }
