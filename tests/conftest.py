@@ -133,41 +133,21 @@ def patient10(db):
     """
     return 10 patients
     """
-
     return [FacPatient() for i in range(10)]
 
-
-# @pytest.fixture(scope='function', autouse=True)
-# def apiclient(db):
-#     """
-#     DRF apiclient
-#     """
-#     u = FacUnoUser()
-#     from rest_framework.test import APIClient
-#     client = APIClient()
-#     client.force_authenticate(user=u)
-#     return client
-
-# """
-# USers
-# """
-
-# #
-# @pytest.fixture(autouse=True, scope='function')
-# def testuser(db):
-
-#     return FacUnoUser()
 
 # # """
 # # actes
 # # """
 
-# @pytest.fixture(autouse=True, scope='function')
-# def observation(db):
-#     """
-#     fixture for observation instance
-#     """
-#     return FacObservation()
+
+@pytest.fixture(autouse=True, scope='function')
+def observation(db):
+    """
+    fixture for observation instance
+    """
+    return FacObservation
+
 
 # #"""
 # #Ordonnances

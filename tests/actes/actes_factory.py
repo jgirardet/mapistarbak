@@ -1,7 +1,7 @@
 import datetime
 import random
 
-from tests.factories import FacPatient, FacUser
+from tests.factories import *  #acPatient, FacUser
 
 import factory
 

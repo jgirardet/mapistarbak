@@ -1,25 +1,44 @@
-from rest_framework import mixins, viewsets
+from apistar.backends.django_orm import Session as DB
+from .schemas import ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
+from apistar.interfaces import Auth
+from apistar import Response
+from utils.shortcuts import get_or_404
+from typing import List
+from apistar.exceptions import NotFound, BadRequest
 
-from .models import Observation
-from .permissions import OnlyOwnerCanEdit
-from .serializers import ObservationSerializer
 
-
-class ActeViewSet(viewsets.ModelViewSet):
-    """ base common viewset for ActeS
+def observation_create(
+        db: DB,
+        obs: ObservationCreateSchema,
+        auth: Auth,
+) -> Response:
     """
-    permission_classes = (OnlyOwnerCanEdit, )
-
-    def perform_create(self, serializer):
-        """
-        add user to owner saving instance
-        """
-        serializer.save(owner=self.request.user)
-
-
-class ObservationViewSet(ActeViewSet):
+    Create Observation
     """
-    base viewset for patients
+    patient = get_or_404(db.Patient, obs.pop('patient_id'))
+    new_obs = db.Observation.objects.create(
+        patient=patient, owner=auth.user, **obs)
+    return Response(ObservationSchema(new_obs), status=201)
+
+
+def observation_list(db: DB, patient_id: int) -> List[ObservationSchema]:
     """
-    queryset = Observation.objects.all()
-    serializer_class = ObservationSerializer
+    Get all observation for a giver patient.
+    Most recent  first
+    """
+    obs = db.Observation.objects.filter(
+        patient_id=patient_id).order_by('-created')
+    return [ObservationSchema(item) for item in obs]
+
+
+def observation_update(obs_id: int, new_data: ObservationUpdateSchema, db: DB,
+                       auth: Auth) -> ObservationSchema:
+    if not new_data:
+        raise BadRequest("empty query")
+    obs = get_or_404(db.Observation, obs_id)
+
+    try:
+        obs.update(**new_data)
+    except AttributeError as e:
+        raise BadRequest from e
+    return ObservationSchema(obs)

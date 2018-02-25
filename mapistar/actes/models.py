@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-
+from django.db.models import manager
 from patients.models import Patient
 
 
@@ -24,7 +24,14 @@ class BaseActe(models.Model):
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()
-        super().save()
+        super().save(*args, **kwargs)
+
+    def update(self, **kwargs):
+        for k, v in kwargs.items():
+            getattr(self, k)  #raise attributeerror if k not in model
+            setattr(self, k, v)
+
+        self.save()
 
 
 class Observation(BaseActe):
@@ -34,7 +41,7 @@ class Observation(BaseActe):
     motif : purpose of the visit. can't be blank.this is the most minimam
     thing a user schould enter.
     """
-    motif = models.CharField(max_length=40, blank=False)
+    motif = models.CharField(max_length=60, blank=False)
     body = models.TextField(blank=True)
 
     def __str__(self):
