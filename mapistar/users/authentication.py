@@ -4,10 +4,10 @@ from apistar import http
 from apistar.backends.django_orm import Session as Db
 from apistar.exceptions import BadRequest
 from apistar.exceptions import Forbidden
+from apistar.interfaces import Auth
 from apistar_jwt.authentication import get_jwt
 from apistar_jwt.exceptions import AuthenticationFailed
 from django.core.exceptions import ObjectDoesNotExist
-from apistar.interfaces import Auth
 
 
 class AuthUser(Auth):
@@ -26,14 +26,13 @@ class AuthUser(Auth):
 
 
 class MapistarJWTAuthentication():
-    def authenticate(self, authorization: http.Header, settings: Settings,
-                     db: Db):
-        #Firs we check token validity
+    def authenticate(self, authorization: http.Header, settings: Settings, db: Db):
+        # Firs we check token validity
         jwt = get_jwt(authorization, settings)
         if jwt.payload == {}:
             raise AuthenticationFailed("payload non validé")
 
-        #Get User instance
+        # Get User instance
         user_id = jwt.payload['user_id']
         try:
             user = db.User.objects.get(id=user_id)

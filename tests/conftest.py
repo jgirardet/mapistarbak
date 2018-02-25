@@ -10,14 +10,14 @@ from apistar import TestClient
 from apistar.backends.django_orm import DjangoORM
 from apistar.backends.django_orm import Session
 from apistar.frameworks.wsgi import WSGIApp as App
+from apistar_jwt.token import JWT
 from app import components
 from config import settings
 from config.urls import routes
-from tests.factories import *
-from users.models import User
-from apistar_jwt.token import JWT
 from django.utils import timezone
+from tests.factories import *
 from users.authentication import AuthUser
+from users.models import User
 from users.utils import get_payload
 
 ################################################

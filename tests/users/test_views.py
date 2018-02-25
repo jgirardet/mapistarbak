@@ -1,7 +1,10 @@
-from config.settings import test as test_settings
-from apistar import reverse_url
+# Standard Libraries
 import json
+
+# Third Party Libraries
 from apistar import TestClient
+from apistar import reverse_url
+from config.settings import test as test_settings
 from users.models import User
 
 

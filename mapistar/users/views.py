@@ -5,6 +5,7 @@ from apistar import annotate
 from apistar.exceptions import Forbidden
 from apistar_jwt.token import JWT
 from django.contrib.auth import authenticate
+
 from .utils import get_payload
 
 

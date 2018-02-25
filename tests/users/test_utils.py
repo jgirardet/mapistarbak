@@ -1,5 +1,6 @@
-from users.utils import get_payload
+# Third Party Libraries
 import pytest
+from users.utils import get_payload
 
 
 def test_get_payload_user(user):

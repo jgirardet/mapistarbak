@@ -1,11 +1,15 @@
+# Standard Libraries
+from unittest.mock import MagicMock
+
+# Third Party Libraries
 import pytest
+from apistar.exceptions import BadRequest
+from apistar.exceptions import Forbidden
+from apistar_jwt.exceptions import AuthenticationFailed
+from apistar_jwt.token import JWT
+from config.settings import base
 from users.authentication import MapistarJWTAuthentication
 from users.utils import get_payload
-from config.settings import base
-from apistar_jwt.token import JWT
-from apistar_jwt.exceptions import AuthenticationFailed
-from apistar.exceptions import BadRequest, Forbidden
-from unittest.mock import MagicMock
 
 
 def testautheticate_pass_with_valid_jwt(user, ss):
