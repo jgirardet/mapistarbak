@@ -152,3 +152,4 @@ doc/_build/
 Pipfile.lock
 AUTHORS
 ChangeLog
+.timeit.json
