@@ -1,7 +1,5 @@
 # Third Party Libraries
-from apistar import Response
-from apistar import Settings
-from apistar import annotate
+from apistar import Response, Settings, annotate
 from apistar.exceptions import Forbidden
 from apistar_jwt.token import JWT
 from django.contrib.auth import authenticate

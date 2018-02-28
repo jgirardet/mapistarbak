@@ -2,13 +2,9 @@
 
 # Third Party Libraries
 import pytest
-from actes.schemas import ObservationSchema
-from actes.schemas import ObservationUpdateSchema
-from actes.views import observation_create
-from actes.views import observation_list
-from actes.views import observation_update
-from apistar.exceptions import BadRequest
-from apistar.exceptions import Forbidden
+from actes.schemas import ObservationSchema, ObservationUpdateSchema
+from actes.views import observation_create, observation_list, observation_update
+from apistar.exceptions import BadRequest, Forbidden
 from tests.factories import FacUser
 
 
@@ -42,6 +38,14 @@ def test_observation_update_bad_new_data(observation, ss, user, auth_user):
 
 def test_observation_update_not_owner(observation, ss, user, auth_user):
     obs = observation(owner=FacUser())
+    params = ObservationUpdateSchema({'motif': "blabla"})
+    with pytest.raises(Forbidden):
+        observation_update(obs.id, params, ss, auth_user)
+
+
+def test_observation_update_only_today(observation, ss, user, auth_user):
+    # moke timezone
+    obs = observation(owner=user)
     params = ObservationUpdateSchema({'motif': "blabla"})
     with pytest.raises(Forbidden):
         observation_update(obs.id, params, ss, auth_user)

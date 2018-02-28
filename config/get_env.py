@@ -3,8 +3,7 @@ import pathlib
 import sys
 
 # Third Party Libraries
-from apistar import environment
-from apistar import typesystem
+from apistar import environment, typesystem
 
 # import os
 # from django.conf import settings

@@ -3,8 +3,7 @@ from unittest.mock import MagicMock
 
 # Third Party Libraries
 import pytest
-from apistar.exceptions import BadRequest
-from apistar.exceptions import Forbidden
+from apistar.exceptions import BadRequest, Forbidden
 from apistar_jwt.exceptions import AuthenticationFailed
 from apistar_jwt.token import JWT
 from app import settings

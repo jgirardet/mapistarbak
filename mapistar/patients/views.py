@@ -8,9 +8,7 @@ from apistar.exceptions import NotFound
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
-from .schemas import PatientCreateSchema
-from .schemas import PatientSchema
-from .schemas import PatientUpdateSchema
+from .schemas import PatientCreateSchema, PatientSchema, PatientUpdateSchema
 
 
 def patients_detail(session: Session, patient_id: int) -> PatientSchema:

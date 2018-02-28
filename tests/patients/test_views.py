@@ -7,9 +7,7 @@ from apistar import reverse_url
 from apistar.exceptions import NotFound
 from patients.models import Patient
 from patients.schemas import PatientSchema
-from patients.views import patients_detail
-from patients.views import patients_list
-from patients.views import patients_update
+from patients.views import patients_detail, patients_list, patients_update
 
 
 # test read write

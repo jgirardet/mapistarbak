@@ -4,15 +4,13 @@ from typing import List
 # Third Party Libraries
 from apistar import Response
 from apistar.backends.django_orm import Session as DB
-from apistar.exceptions import BadRequest
-from apistar.exceptions import Forbidden
-from apistar.exceptions import NotFound
+from apistar.exceptions import BadRequest, Forbidden
 from apistar.interfaces import Auth
 from utils.shortcuts import get_or_404
 
-from .schemas import ObservationCreateSchema
-from .schemas import ObservationSchema
-from .schemas import ObservationUpdateSchema
+from .schemas import ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
+
+from django.utils import timezone
 
 
 def observation_create(
@@ -24,7 +22,8 @@ def observation_create(
     Create Observation
     """
     patient = get_or_404(db.Patient, obs.pop('patient_id'))
-    new_obs = db.Observation.objects.create(patient=patient, owner=auth.user, **obs)
+    new_obs = db.Observation.objects.create(
+        patient=patient, owner=auth.user, **obs)
     return Response(ObservationSchema(new_obs), status=201)
 
 
@@ -33,7 +32,8 @@ def observation_list(db: DB, patient_id: int) -> List[ObservationSchema]:
     Get all observation for a giver patient.
     Most recent  first
     """
-    obs = db.Observation.objects.filter(patient_id=patient_id).order_by('-created')
+    obs = db.Observation.objects.filter(
+        patient_id=patient_id).order_by('-created')
     return [ObservationSchema(item) for item in obs]
 
 
@@ -45,6 +45,10 @@ def observation_update(obs_id: int, new_data: ObservationUpdateSchema, db: DB,
         raise BadRequest("empty query")
 
     obs = get_or_404(db.Observation, obs_id)
+
+    # Update not possible if not today
+    if obs.created.date() != timezone.localdate():
+        raise BadRequest("Observation can't be edited another day")
 
     # cher owner is current_user
     if not auth.user == obs.owner:

@@ -1,8 +1,7 @@
 # Third Party Libraries
 from actes.urls import actes_urls
 from apistar import Include
-from apistar.handlers import docs_urls
-from apistar.handlers import static_urls
+from apistar.handlers import docs_urls, static_urls
 from patients.urls import patients_urls
 from users.urls import users_urls
 

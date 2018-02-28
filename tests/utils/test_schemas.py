@@ -1,10 +1,7 @@
 # Third Party Libraries
 import pytest
 from apistar.exceptions import TypeSystemError
-from utils.schemas import EmailSchema
-from utils.schemas import RegularText
-from utils.schemas import formatted_date
-from utils.schemas import regular_text
+from utils.schemas import EmailSchema, RegularText, formatted_date, regular_text
 
 
 class TestRegularText:

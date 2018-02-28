@@ -4,8 +4,7 @@
 import datetime
 
 # Third Party Libraries
-from django.db import migrations
-from django.db import models
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):

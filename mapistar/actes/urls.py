@@ -1,9 +1,7 @@
 # Third Party Libraries
 from apistar import Route
 
-from .views import observation_create
-from .views import observation_list
-from .views import observation_update
+from .views import observation_create, observation_list, observation_update
 
 actes_urls = [
     # Route('/{patient_id}/', 'GET', patients_detail),
