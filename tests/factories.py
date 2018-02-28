@@ -8,7 +8,7 @@ from tests.users.users_factory import FacUser
 
 __all__ = [
     'FacPatient',
+    'FacUser',
     'FacBaseActe',
     'FacObservation',
-    'FacUser',
 ]

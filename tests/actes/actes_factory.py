@@ -4,7 +4,7 @@ import random
 
 # Third Party Libraries
 import factory
-from tests.factories import *  # acPatient, FacUser
+from tests.factories import *
 
 fk = factory.Faker
 

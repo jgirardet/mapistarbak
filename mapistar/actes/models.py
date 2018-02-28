@@ -9,13 +9,16 @@ from patients.models import Patient
 class BaseActe(models.Model):
     """
     Base Abstract class for for differnets actions
-    made by usej
+    made by users
+    Updatable fields by user must be set in updatable
     """
     patient = models.ForeignKey(Patient, related_name="%(class)ss", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="%(class)ss", on_delete=models.PROTECT)
+
+    updatable = []
 
     class Meta:
         abstract = True
@@ -25,8 +28,12 @@ class BaseActe(models.Model):
         super().save(*args, **kwargs)
 
     def update(self, **kwargs):
+        """
+        Update depending updatable items
+        """
         for k, v in kwargs.items():
             getattr(self, k)  # raise attributeerror if k not in model
+            assert k in self.updatable, "k is not in updatable"  # prevent
             setattr(self, k, v)
 
         self.save()
@@ -41,6 +48,8 @@ class Observation(BaseActe):
     """
     motif = models.CharField(max_length=60, blank=False)
     body = models.TextField(blank=True)
+
+    updatable = ['motif', 'body']
 
     def __str__(self):
         return self.motif

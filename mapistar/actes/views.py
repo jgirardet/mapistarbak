@@ -5,6 +5,7 @@ from typing import List
 from apistar import Response
 from apistar.backends.django_orm import Session as DB
 from apistar.exceptions import BadRequest
+from apistar.exceptions import Forbidden
 from apistar.exceptions import NotFound
 from apistar.interfaces import Auth
 from utils.shortcuts import get_or_404
@@ -37,13 +38,21 @@ def observation_list(db: DB, patient_id: int) -> List[ObservationSchema]:
 
 
 def observation_update(obs_id: int, new_data: ObservationUpdateSchema, db: DB,
-                       auth: Auth) -> ObservationSchema:
+                       auth: Auth) -> Response:
+
+    # check against empty data
     if not new_data:
         raise BadRequest("empty query")
+
     obs = get_or_404(db.Observation, obs_id)
+
+    # cher owner is current_user
+    if not auth.user == obs.owner:
+        raise Forbidden('Only owner can edit an Observation')
 
     try:
         obs.update(**new_data)
     except AttributeError as e:
+        # request should be for valide fields
         raise BadRequest from e
-    return ObservationSchema(obs)
+    return Response(ObservationSchema(obs), status=201)

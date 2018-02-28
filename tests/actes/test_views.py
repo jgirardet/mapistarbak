@@ -1,5 +1,4 @@
 # Standard Libraries
-from operator import attrgetter
 
 # Third Party Libraries
 import pytest
@@ -9,6 +8,8 @@ from actes.views import observation_create
 from actes.views import observation_list
 from actes.views import observation_update
 from apistar.exceptions import BadRequest
+from apistar.exceptions import Forbidden
+from tests.factories import FacUser
 
 
 def test_observation_create(patient, ss, auth_user):
@@ -29,11 +30,18 @@ def test_observation_update(observation, ss, user, auth_user):
     params = ObservationUpdateSchema({'motif': "blabla"})
     o = observation_update(obs.id, params, ss, auth_user)
     od_db = ss.Observation.objects.get(id=obs.id)
-    assert o['motif'] == "blabla" == od_db.motif
+    assert o.content['motif'] == "blabla" == od_db.motif
 
 
-def test_observation_update_2(observation, ss, user, auth_user):
+def test_observation_update_bad_new_data(observation, ss, user, auth_user):
     obs = observation(owner=user)
     params = {'motidzdzdf': "blabla"}
     with pytest.raises(BadRequest):
-        o = observation_update(obs.id, params, ss, auth_user)
+        observation_update(obs.id, params, ss, auth_user)
+
+
+def test_observation_update_not_owner(observation, ss, user, auth_user):
+    obs = observation(owner=FacUser())
+    params = ObservationUpdateSchema({'motif': "blabla"})
+    with pytest.raises(Forbidden):
+        observation_update(obs.id, params, ss, auth_user)
