@@ -603,10 +603,10 @@
         },
         "packaging": {
             "hashes": [
-                "sha256:99276dc6e3a7851f32027a68f1095cd3f77c148091b092ea867a351811cfe388",
-                "sha256:5d50835fdf0a7edf0b55e311b7c887786504efea1177abd7e69329a8e5ea619e"
+                "sha256:fd6933093a5462f61eec7e2d7f9bb042c28ee597ff6a93d27fb73bdc43f2684d",
+                "sha256:e9f654a6854321ac39d2e6745b820773ba9efa394e71dea1b387cc717d439f93"
             ],
-            "version": "==16.8"
+            "version": "==17.0"
         },
         "pathtools": {
             "hashes": [
