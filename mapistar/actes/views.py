@@ -11,6 +11,9 @@ from utils.shortcuts import get_or_404
 from .schemas import ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
 
 from django.utils import timezone
+from apistar import annotate
+from .permissions import ActesWritePermission, IsAdminUser
+from users.authentication import MapistarJWTAuthentication
 
 
 def observation_create(
@@ -37,6 +40,8 @@ def observation_list(db: DB, patient_id: int) -> List[ObservationSchema]:
     return [ObservationSchema(item) for item in obs]
 
 
+@annotate(
+    authentication=[MapistarJWTAuthentication()], permissions=[IsAdminUser()])
 def observation_update(obs_id: int, new_data: ObservationUpdateSchema, db: DB,
                        auth: Auth) -> Response:
 
@@ -51,7 +56,7 @@ def observation_update(obs_id: int, new_data: ObservationUpdateSchema, db: DB,
         raise BadRequest("Observation can't be edited another day")
 
     # cher owner is current_user
-    if not auth.user == obs.owner:
+    if auth.user != obs.owner:
         raise Forbidden('Only owner can edit an Observation')
 
     try:
@@ -60,3 +65,13 @@ def observation_update(obs_id: int, new_data: ObservationUpdateSchema, db: DB,
         # request should be for valide fields
         raise BadRequest from e
     return Response(ObservationSchema(obs), status=201)
+
+
+def observation_delete(obs_id, db: DB, auth: Auth) -> bool:
+    obs = get_or_404(db.Observation, obs_id)
+
+    if auth.user != obs.owner:
+        raise Forbidden('Only owner can edit an Observation')
+
+    obs.delete()
+    return True

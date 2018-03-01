@@ -3,9 +3,10 @@
 # Third Party Libraries
 import pytest
 from actes.schemas import ObservationSchema, ObservationUpdateSchema
-from actes.views import observation_create, observation_list, observation_update
+from actes.views import observation_create, observation_list, observation_update, observation_delete
 from apistar.exceptions import BadRequest, Forbidden
 from tests.factories import FacUser
+from django.utils import timezone
 
 
 def test_observation_create(patient, ss, auth_user):
@@ -44,8 +45,16 @@ def test_observation_update_not_owner(observation, ss, user, auth_user):
 
 
 def test_observation_update_only_today(observation, ss, user, auth_user):
-    # moke timezone
     obs = observation(owner=user)
+    obs.created += timezone.timedelta(days=-1)
+    obs.save()
+    print(obs.created)
     params = ObservationUpdateSchema({'motif': "blabla"})
-    with pytest.raises(Forbidden):
+    with pytest.raises(BadRequest):
         observation_update(obs.id, params, ss, auth_user)
+
+
+def test_observation_delete(observation, ss, auth_user):
+    obs = observation(owner=auth_user.user)
+    o = observation_delete(obs.id, ss, auth_user)
+    assert o

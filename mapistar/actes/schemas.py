@@ -1,6 +1,5 @@
 # Third Party Libraries
 from apistar import typesystem
-from utils.schemas import formatted_date
 
 
 class BaseActeSchema(typesystem.Object):
