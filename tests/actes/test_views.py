@@ -3,10 +3,10 @@
 # Third Party Libraries
 import pytest
 from actes.schemas import ObservationSchema, ObservationUpdateSchema
-from actes.views import observation_create, observation_list, observation_update, observation_delete
+from actes.views import observation_create, observation_delete, observation_list, observation_update
 from apistar.exceptions import BadRequest, Forbidden
-from tests.factories import FacUser
 from django.utils import timezone
+from tests.factories import FacUser
 
 
 def test_observation_create(patient, ss, auth_user):
@@ -33,23 +33,6 @@ def test_observation_update(observation, ss, user, auth_user):
 def test_observation_update_bad_new_data(observation, ss, user, auth_user):
     obs = observation(owner=user)
     params = {'motidzdzdf': "blabla"}
-    with pytest.raises(BadRequest):
-        observation_update(obs.id, params, ss, auth_user)
-
-
-def test_observation_update_not_owner(observation, ss, user, auth_user):
-    obs = observation(owner=FacUser())
-    params = ObservationUpdateSchema({'motif': "blabla"})
-    with pytest.raises(Forbidden):
-        observation_update(obs.id, params, ss, auth_user)
-
-
-def test_observation_update_only_today(observation, ss, user, auth_user):
-    obs = observation(owner=user)
-    obs.created += timezone.timedelta(days=-1)
-    obs.save()
-    print(obs.created)
-    params = ObservationUpdateSchema({'motif': "blabla"})
     with pytest.raises(BadRequest):
         observation_update(obs.id, params, ss, auth_user)
 
