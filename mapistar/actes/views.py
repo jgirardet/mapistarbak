@@ -8,9 +8,10 @@ from apistar.exceptions import BadRequest
 from apistar.interfaces import Auth
 from apistar.permissions import IsAuthenticated
 from users.permissions import ActesWritePermission
-from utils.shortcuts import get_or_404
-
-from .schemas import ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
+from utils.shortcuts import get_or_404, get_model
+from string import capwords
+from .schemas import BaseActeSchema, ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
+from .index import actes_schemas
 
 
 def observation_create(
@@ -22,20 +23,20 @@ def observation_create(
     Create Observation
     """
     patient = get_or_404(db.Patient, obs.pop('patient_id'))
-    new_obs = db.Observation.objects.create(patient=patient, owner=auth.user, **obs)
+    new_obs = db.Observation.objects.create(
+        patient=patient, owner=auth.user, **obs)
     return Response(ObservationSchema(new_obs), status=201)
 
 
-def observation_list(db: DB, patient_id: int) -> List[ObservationSchema]:
-    """
-    Get all observation for a giver patient.
-    Most recent  first
-    """
-    obs = db.Observation.objects.filter(patient_id=patient_id).order_by('-created')
-    return [ObservationSchema(item) for item in obs]
+def list_acte(type_acte: str, patient_id: int, db: DB) -> List[BaseActeSchema]:
+    model = get_model(type_acte, db)
+
+    objs = model.objects.filter(patient_id=patient_id).order_by('-created')
+
+    return [actes_schemas[model.__name__].read(item) for item in objs]
 
 
-@annotate(permissions=[IsAuthenticated, ActesWritePermission()])
+@annotate(permissions=[IsAuthenticated(), ActesWritePermission()])
 def observation_update(obj_id: int, new_data: ObservationUpdateSchema, db: DB,
                        auth: Auth) -> Response:
 
@@ -53,7 +54,7 @@ def observation_update(obj_id: int, new_data: ObservationUpdateSchema, db: DB,
     return Response(ObservationSchema(obs), status=201)
 
 
-@annotate(permissions=[IsAuthenticated, ActesWritePermission()])
+@annotate(permissions=[IsAuthenticated(), ActesWritePermission()])
 def observation_delete(obj_id: int, db: DB, auth: Auth) -> Response:
     obs = db.Observation.objects.get(id=obj_id)
     obs.delete()
