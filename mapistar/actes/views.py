@@ -10,30 +10,12 @@ from apistar.permissions import IsAuthenticated
 from users.permissions import ActesWritePermission
 from utils.shortcuts import get_or_404, get_model
 from string import capwords
-from .schemas import BaseActeSchema, ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
-from .index import actes_schemas
+from .schemas import BaseActeSchema, BaseActeCreateSchema, ObservationCreateSchema, ObservationSchema, ObservationUpdateSchema
+from .index import actes_schemas, ActeViews
 
+from .models import Observation
 
-def observation_create(
-        db: DB,
-        obs: ObservationCreateSchema,
-        auth: Auth,
-) -> Response:
-    """
-    Create Observation
-    """
-    patient = get_or_404(db.Patient, obs.pop('patient_id'))
-    new_obs = db.Observation.objects.create(
-        patient=patient, owner=auth.user, **obs)
-    return Response(ObservationSchema(new_obs), status=201)
-
-
-def list_acte(type_acte: str, patient_id: int, db: DB) -> List[BaseActeSchema]:
-    model = get_model(type_acte, db)
-
-    objs = model.objects.filter(patient_id=patient_id).order_by('-created')
-
-    return [actes_schemas[model.__name__].read(item) for item in objs]
+VObs = ActeViews(Observation)
 
 
 @annotate(permissions=[IsAuthenticated(), ActesWritePermission()])

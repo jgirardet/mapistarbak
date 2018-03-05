@@ -35,11 +35,11 @@ class ObservationCreateSchema(typesystem.Object):
     ObservationCreateSchema
 
     """
-    new_properties = {
+    properties = {
         'motif': typesystem.string(max_length=60, description="Motif"),
         'body': typesystem.string(description="Texte de l'observation"),
     }
-    properties = dict(BaseActeCreateSchema.properties, **new_properties)
+    # properties = dict(BaseActeCreateSchema.properties, **new_properties)
     required = BaseActeCreateSchema.required + ['motif']
 
 
@@ -47,7 +47,8 @@ class ObservationUpdateSchema(typesystem.Object):
     """
     Update only-schema
     """
-    properties = ObservationCreateSchema.new_properties
+    properties = ObservationCreateSchema.properties
+    # properties = ObservationCreateSchema.new_properties
     required = []
 
 

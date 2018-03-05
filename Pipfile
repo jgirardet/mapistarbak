@@ -29,6 +29,7 @@ factory-boy = "*"
 pytest-timeit = "*"
 pytest-env = "*"
 apistar-shell = "*"
+mypy = "*"
 
 
 [packages]
