@@ -19,24 +19,6 @@ VObs = ActeViews(Observation)
 
 
 @annotate(permissions=[IsAuthenticated(), ActesWritePermission()])
-def observation_update(obj_id: int, new_data: ObservationUpdateSchema, db: DB,
-                       auth: Auth) -> Response:
-
-    # check against empty data
-    if not new_data:
-        raise BadRequest("empty query")
-
-    obs = db.Observation.objects.get(id=obj_id)
-
-    try:
-        obs.update(**new_data)
-    except AttributeError as e:
-        # request should be for valide fields
-        raise BadRequest from e
-    return Response(ObservationSchema(obs), status=201)
-
-
-@annotate(permissions=[IsAuthenticated(), ActesWritePermission()])
 def observation_delete(obj_id: int, db: DB, auth: Auth) -> Response:
     obs = db.Observation.objects.get(id=obj_id)
     obs.delete()
