@@ -27,7 +27,10 @@ apistar_settings = importlib.import_module('config.settings')
 routes = importlib.import_module('config.urls').routes
 
 # collect All components
-components = [*django_orm.components, *apistar_shell_components.components]
+components = [
+    *django_orm.components,
+    *apistar_shell_components.components,
+]
 
 # Merge apistar and django settings, so everything is in Settings component
 # For testing and doc, this one bellow schould be imported

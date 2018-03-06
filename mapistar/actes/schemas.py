@@ -1,5 +1,9 @@
 # Third Party Libraries
+# Standard Libraries
+from collections import namedtuple
+
 from apistar import typesystem
+from apistar.backends.django_orm import Session as DB
 
 
 class BaseActeSchema(typesystem.Object):
@@ -35,11 +39,11 @@ class ObservationCreateSchema(typesystem.Object):
     ObservationCreateSchema
 
     """
-    properties = {
+    new_properties = {
         'motif': typesystem.string(max_length=60, description="Motif"),
         'body': typesystem.string(description="Texte de l'observation"),
     }
-    # properties = dict(BaseActeCreateSchema.properties, **new_properties)
+    properties = dict(BaseActeCreateSchema.properties, **new_properties)
     required = BaseActeCreateSchema.required + ['motif']
 
 
@@ -51,6 +55,50 @@ class ObservationUpdateSchema(typesystem.Object):
     # properties = ObservationCreateSchema.new_properties
     required = []
 
+
+class PrescriptionLibreSchema(typesystem.Object):
+    new_properties = {
+        'titre': typesystem.string(description="titre"),
+        'body': typesystem.string(description="Texte de prescription"),
+    }
+    properties = dict(BaseActeSchema.properties, **new_properties)
+    required = []
+
+
+class PrescriptionLibreCreateSchema(typesystem.Object):
+    """"
+    PresciptionLibrecreate
+
+    """
+    new_properties = {
+        'titre': typesystem.string(max_length=60, description="titre"),
+        'body': typesystem.string(description="Texte de prescription"),
+    }
+    properties = dict(BaseActeCreateSchema.properties, **new_properties)
+    required = BaseActeCreateSchema.required + ['titre']
+
+
+class PrescriptionLibrUpdateSchema(typesystem.Object):
+    """
+    Update only-schema
+    """
+    properties = {
+        'titre': typesystem.string(max_length=60, description="titre"),
+        'body': typesystem.string(description="Texte de prescription"),
+    }
+    # properties = ObservationCreateSchema.new_properties
+    required = []
+
+
+SchemasCollection = namedtuple('SchemasCollection', 'getter creater updater')
+
+actes_schemas = {
+    'Observation':
+        SchemasCollection(ObservationSchema, ObservationCreateSchema, ObservationUpdateSchema),
+    'PrescriptionLibre':
+        SchemasCollection(PrescriptionLibreSchema, PrescriptionLibreCreateSchema,
+                          PrescriptionLibrUpdateSchema)
+}
 
 # class ObservationCreateSchema(typesystem.Object):
 #     """"

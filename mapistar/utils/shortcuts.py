@@ -1,11 +1,12 @@
 # Third Party Libraries
+# Standard Libraries
+from string import capwords
+
+from apistar.backends.django_orm import Session as DB
 from apistar.exceptions import NotFound
 from django.db import models
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from apistar.backends.django_orm import Session as DB
-from django.db import models
-from string import capwords
 
 
 def get_or_404(model: models, id: [str, int]):

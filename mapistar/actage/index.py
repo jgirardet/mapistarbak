@@ -11,22 +11,21 @@ from apistar.backends.django_orm import Session as DB
 from apistar.exceptions import BadRequest
 from apistar.interfaces import Auth
 from apistar.permissions import IsAuthenticated
+from users.permissions import ActesWritePermission
 from utils.shortcuts import get_or_404
 
-from .permissions import ActesWritePermission
 from .schemas import actes_schemas
 
 
 class ActeViews:
 
-    instances = {}
+    instances = []
 
     def __init__(self, model):
-        # from .permissions import ActesWritePermission
         self.model = model
         self.model_name = model.__name__
         self.name = self.model.__name__.lower() + "s"
-        self.__class__.instances[self.name] = self.model
+        self.__class__.instances.append({self.name: self.model})
         # setattr(self, "create_" + model.__name__.lower(), create)
         # self.create.__name__ = 'create_obs'
 
@@ -54,9 +53,7 @@ class ActeViews:
         return liste_acte
 
     def update(self):
-        @annotate(
-            permissions=[IsAuthenticated(),
-                         ActesWritePermission(models=self.__class__.instances)])
+        @annotate(permissions=[IsAuthenticated(), ActesWritePermission()])
         def acte_update(obj_id: int, new_data: actes_schemas[self.model_name].updater,
                         auth: Auth) -> Response:
 
@@ -78,9 +75,7 @@ class ActeViews:
         return acte_update
 
     def delete(self):
-        @annotate(
-            permissions=[IsAuthenticated(),
-                         ActesWritePermission(models=self.__class__.instances)])
+        @annotate(permissions=[IsAuthenticated(), ActesWritePermission()])
         def acte_delete(obj_id: int, auth: Auth) -> Response:
             obj = self.model.objects.get(id=obj_id)
             obj.delete()
@@ -94,7 +89,7 @@ class ActeViews:
         def get_one_acte(obj_id: int, auth: Auth) -> actes_schemas[self.model_name].getter:
             obj = get_or_404(self.model, id=obj_id)
             print(obj)
-            return actes_schemas[self.model_name].getter(obj)
+            return actes_schemas[self.model].getter(obj)
 
         get_one_acte.__name__ = "getone_" + self.name
         get_one_acte.__doc__ = f""" Get One  {self.name}"""
@@ -102,11 +97,7 @@ class ActeViews:
 
     def urls(self):
         return [
-            Route(
-                '/' + self.name + '/{obj_id}/',
-                'GET',
-                self.get_one(),
-                name=self.name + "_GERGERregerg"),
+            Route('/' + self.name + '/{obj_id}/', 'GET', self.get_one()),
             Route('/' + self.name + '/', 'POST', self.create()),
             Route('/' + self.name + '/patient/{patient_id}/', 'GET', self.liste()),
             Route('/' + self.name + '/{obj_id}/', 'PATCH', self.update()),

@@ -12,14 +12,11 @@ class BaseActe(models.Model):
     made by users
     Updatable fields by user must be set in updatable
     """
-    patient = models.ForeignKey(
-        Patient, related_name="%(class)ss", on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, related_name="%(class)ss", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="%(class)ss",
-        on_delete=models.PROTECT)
+        settings.AUTH_USER_MODEL, related_name="%(class)ss", on_delete=models.PROTECT)
 
     updatable = []
 
@@ -62,9 +59,21 @@ class Observation(BaseActe):
         return self.motif
 
 
+class PrescriptionLibre(BaseActe):
+    """
+    small prescirption free
+    """
+    titre = models.CharField(max_length=60, blank=False)
+    body = models.TextField(blank=True)
+
+    updatable = ['titre', 'body']
+
+    def __str__(self):
+        return self.titre
+
+
 """
 BAseActe:
-non modifiable if not today
 Observation :
     TA/pouls
     conclusion

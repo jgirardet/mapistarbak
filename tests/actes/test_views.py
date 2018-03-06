@@ -2,12 +2,12 @@
 
 # Third Party Libraries
 import pytest
+from actes.index import actes_schemas
+from actes.schemas import ObservationSchema
 from actes.views import list_acte
 from apistar.exceptions import BadRequest, Forbidden
 from django.utils import timezone
 from tests.factories import FacUser
-from actes.index import actes_schemas
-from actes.schemas import ObservationSchema
 
 
 def test_list_acte_pass(patient, observation, ss):
