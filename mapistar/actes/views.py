@@ -1,7 +1,5 @@
-from .index import ActeViews
+from .actesviews import ActesViews
 from .models import Observation, PrescriptionLibre
 
-VObs = ActeViews(Observation)
-VPrescriptionLibre = ActeViews(PrescriptionLibre)
-
-print(ActeViews.instances)
+VObs = ActesViews(Observation)
+VPrescriptionLibre = ActesViews(PrescriptionLibre)

@@ -10,3 +10,5 @@ PERMISSIONS = [
     IsAuthenticated(),
 ]
 JWT = {'SECRET': env['JWT_SECRET'], 'PAYLOAD_DURATION': {'seconds': 300}}
+
+ACTES_URL = '/actes'
