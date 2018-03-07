@@ -39,7 +39,6 @@ class ActesViews:
             return Response(
                 actes_schemas[self.model_name].getter(obj), status=201)
 
-        create_acte.__name__ = "create_" + self.name
         create_acte.__doc__ = f""" Create a new {self.name}"""
         return create_acte
 
@@ -55,7 +54,6 @@ class ActesViews:
                 actes_schemas[self.model_name].getter(item) for item in objs
             ]
 
-        liste_acte.__name__ = "liste_" + self.name
         liste_acte.__doc__ = f"""Liste all {self.name} of given patient"""
         return liste_acte
 
@@ -79,7 +77,6 @@ class ActesViews:
             return Response(
                 actes_schemas[self.model_name].getter(obj), status=201)
 
-        acte_update.__name__ = "update_" + self.name
         acte_update.__doc__ = f""" Update  {self.name}"""
         return acte_update
 
@@ -90,7 +87,6 @@ class ActesViews:
             obj.delete()
             return Response({'message': 'deleted'}, status=201)
 
-        acte_delete.__name__ = "delete_" + self.name
         acte_delete.__doc__ = f""" Delete  {self.name}"""
         return acte_delete
 
@@ -101,16 +97,19 @@ class ActesViews:
             print(obj)
             return actes_schemas[self.model_name].getter(obj)
 
-        get_one_acte.__name__ = "getone_" + self.name
         get_one_acte.__doc__ = f""" Get One  {self.name}"""
         return get_one_acte
 
     def urls(self):
         return [
-            Route('/' + self.name + '/{obj_id}/', 'GET', self.get_one()),
-            Route('/' + self.name + '/', 'POST', self.create()),
+            Route('/' + self.name + '/{obj_id}/', 'GET', self.get_one(),
+                  "get_one_" + self.name),
+            Route('/' + self.name + '/', 'POST', self.create(),
+                  "create_" + self.name),
             Route('/' + self.name + '/patient/{patient_id}/', 'GET',
-                  self.liste()),
-            Route('/' + self.name + '/{obj_id}/', 'PATCH', self.update()),
-            Route('/' + self.name + '/{obj_id}/', 'DELETE', self.delete()),
+                  self.liste(), "liste_" + self.name),
+            Route('/' + self.name + '/{obj_id}/', 'PATCH', self.update(),
+                  "update_" + self.name),
+            Route('/' + self.name + '/{obj_id}/', 'DELETE', self.delete(),
+                  "delete_" + self.name),
         ]
