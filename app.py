@@ -38,6 +38,7 @@ settings = {**apistar_settings.__dict__, **django_settings.__dict__}
 
 # Collect all commands
 commands = [*django_orm.commands, *apistar_shell_commands.django_commands]
+
 app = App(
     routes=routes, settings=settings, commands=commands, components=components)
 

@@ -18,15 +18,12 @@ from .schemas import actes_schemas
 
 
 class ActesViews:
-
-    instances = {}
-
     def __init__(self, model):
         # from .permissions import ActesWritePermission
         self.model = model
         self.model_name = model.__name__
         self.name = "".join(str(self.model._meta.verbose_name_plural).split())
-        self.__class__.instances[self.name] = self.model
+        print(self.model_name)
         # setattr(self, "create_" + model.__name__.lower(), create)
         # self.create.__name__ = 'create_obs'
 
