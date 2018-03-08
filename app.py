@@ -35,6 +35,7 @@ components = [
 # Merge apistar and django settings, so everything is in Settings component
 # For testing and doc, this one bellow schould be imported
 settings = {**apistar_settings.__dict__, **django_settings.__dict__}
+print(settings['AUTHENTICATION'])
 
 # Collect all commands
 commands = [*django_orm.commands, *apistar_shell_commands.django_commands]
