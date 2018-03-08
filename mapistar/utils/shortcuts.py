@@ -1,7 +1,7 @@
-# Third Party Libraries
 # Standard Libraries
 from string import capwords
 
+# Third Party Libraries
 from apistar.backends.django_orm import Session as DB
 from apistar.exceptions import NotFound
 from django.db import models

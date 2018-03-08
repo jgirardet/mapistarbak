@@ -1,6 +1,26 @@
 CHANGES
 =======
 
+* acte
+* schema directory
+* fix permission
+* permisssions with arg
+* index
+* permisssions with arg
+* vlass
+* calss based views
+* list ok
+* observation ok
+* permissions
+* only today
+* update
+* rm timeite
+* remove tmeit
+* isort
+* isort
+* initial actes
+* apistar shell, pytest-env
+* Change all config directory
 * some modif
 * testing users coverage 100%
 * testing auth

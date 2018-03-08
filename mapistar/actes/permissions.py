@@ -6,6 +6,7 @@ from utils.shortcuts import get_or_404
 
 
 class ActesWritePermission():
+
     def __init__(self, actesviews):
         self.actesviews = actesviews
 
