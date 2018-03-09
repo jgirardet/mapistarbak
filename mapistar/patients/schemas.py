@@ -1,8 +1,6 @@
 # Third Party Libraries
 from apistar import typesystem
-from utils.schemas import email_schema
-from utils.schemas import formatted_date
-from utils.schemas import regular_text
+from utils.schemas import email_schema, formatted_date, regular_text
 
 
 class PatientSchema(typesystem.Object):

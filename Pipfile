@@ -25,16 +25,17 @@ pytest-pythonpath = "*"
 pytest-django = "*"
 django-reset-migrations = "*"
 django-extensions = "*"
-pytest-env-info = "*"
 factory-boy = "*"
 pytest-timeit = "*"
+pytest-env = "*"
+apistar-shell = "*"
+mypy = "*"
 
 
 [packages]
 
 pbr = ">=3.0"
 apistar = {git = "https://github.com/audiolion/apistar.git", editable=true}
-apistar-shell = "*"
 django = "*"
-"psycopg2" = "*"
+"psycopg2-binary" = "*"
 apistar-jwt = "*"

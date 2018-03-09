@@ -1,6 +1,17 @@
-# Third Party Libraries
-from tests.patients.patient_factory import *
+""" 
+   isort:skip_file
+"""
 
-# from tests.actes.factory import *
+# Third Party Libraries
+from tests.patients.patients_factory import FacPatient
+from tests.users.users_factory import FacUser
+from tests.actes.actes_factory import FacBaseActe
+from tests.actes.actes_factory import FacObservation
+from tests.actes.actes_factory import FacPrescriptionLibre
+
 # from tests.ordonnances.factory import *
-# from tests.unousers.factory import *
+
+__all__ = [
+    'FacPatient', 'FacUser', 'FacBaseActe', 'FacObservation',
+    'FacPrescriptionLibre'
+]

@@ -22,7 +22,7 @@ autopep8:
 	pipenv run autopep8 --in-place --recursive setup.py $(MODULE)
 
 yapf:
-	pipenv run yapf --style .yapf --recursive -i $(MODULE)
+	pipenv run yapf --recursive -i $(MODULE)
 
 checks:
 	pipenv check
@@ -33,7 +33,7 @@ flake8:
 build: dists
 
 shell:
-	pipenv shell
+	pipenv run apistar shell
 
 test-unit:
 	pipenv run pytest 
@@ -68,7 +68,7 @@ update:
 
 githook: checks style requirements.txt
 	
-push: githook
+push:
 	git status
 	git push origin --all
 	git push origin --tags
@@ -99,6 +99,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
+	rm -rf .pytest_cache/
 
 
 migrate: migrations

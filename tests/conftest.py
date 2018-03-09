@@ -5,16 +5,12 @@ from contextlib import contextmanager
 # Third Party Libraries
 import factory
 import pytest
-from apistar import Component
-from apistar import TestClient
-from apistar.backends.django_orm import DjangoORM
-from apistar.backends.django_orm import Session
+from apistar import Component, TestClient
+from apistar.backends.django_orm import DjangoORM, Session
 from apistar.frameworks.wsgi import WSGIApp as App
 from apistar_jwt.token import JWT
-from app import components
-from config import settings
+from app import components, settings
 from config.urls import routes
-from django.utils import timezone
 from tests.factories import *
 from users.authentication import AuthUser
 from users.models import User
@@ -25,7 +21,7 @@ from users.utils import get_payload
 ################################################
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def ss(db):
     """
     session from django backend
@@ -37,7 +33,7 @@ def ss(db):
     #     print(dir(ss))
     #     yield ss
 
-    return Session(DjangoORM(settings.__dict__))
+    return Session(DjangoORM(settings))
 
 
 @contextmanager
@@ -45,7 +41,7 @@ def get_ss(backend: DjangoORM) -> typing.Generator[Session, None, None]:
     yield Session(backend)
 
 
-@pytest.fixture(autouse=True, scope='session')
+@pytest.fixture(scope='session')
 def app_fix():
     """
     fixture for apistar app
@@ -58,38 +54,40 @@ def app_fix():
         if c.cls is Session:
             c = Component(Session, init=get_ss, preload=False)
         comp.append(c)
-    return App(routes=routes, settings=settings.__dict__, components=comp)
+    return App(routes=routes, settings=settings, components=comp)
 
 
-# @pytest.fixture(autouse=True)
-# def user(django_user_model):
-#     a = django_user_model.objects.create(
-#         username="someone", password="something")
-#     return a
-
-
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def user(db):
     # a = User.objects.create(username="someone", password="something")
     return User.objects.create(username="someone", password="something")
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def auth_user(user):
     return AuthUser(user)
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def client(user):
     """
     Authenticated client
     """
-    SECRET = settings.__dict__['JWT'].get('SECRET')
+    SECRET = settings['JWT'].get('SECRET')
 
     token = JWT.encode(get_payload(user, {'seconds': 60}), secret=SECRET)
     c = TestClient(app_fix())
     c.headers['Authorization'] = "Bearer " + token
     return c
+
+
+@pytest.fixture(scope='session')
+def client_anonymous(app_fix):
+    """
+    Anonymous client
+    """
+
+    return TestClient(app_fix)
 
 
 ############################################
@@ -109,7 +107,7 @@ PAtients
 """
 
 
-@pytest.fixture(autouse=True, scope='session')
+@pytest.fixture(scope='session')
 def patientd():
     """
     just a dict, not saved
@@ -117,7 +115,7 @@ def patientd():
     return factory.build(dict, FACTORY_CLASS=FacPatient).copy()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def patient(db):
     """
     return factory mpdele
@@ -127,46 +125,26 @@ def patient(db):
     return FacPatient()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def patient10(db):
     """
     return 10 patients
     """
-
     return [FacPatient() for i in range(10)]
 
-
-# @pytest.fixture(scope='function', autouse=True)
-# def apiclient(db):
-#     """
-#     DRF apiclient
-#     """
-#     u = FacUnoUser()
-#     from rest_framework.test import APIClient
-#     client = APIClient()
-#     client.force_authenticate(user=u)
-#     return client
-
-# """
-# USers
-# """
-
-# #
-# @pytest.fixture(autouse=True, scope='function')
-# def testuser(db):
-
-#     return FacUnoUser()
 
 # # """
 # # actes
 # # """
 
-# @pytest.fixture(autouse=True, scope='function')
-# def observation(db):
-#     """
-#     fixture for observation instance
-#     """
-#     return FacObservation()
+
+@pytest.fixture(autouse=True, scope='function')
+def observation(db):
+    """
+    fixture for observation instance
+    """
+    return FacObservation
+
 
 # #"""
 # #Ordonnances

@@ -3,6 +3,11 @@ import typing
 
 # Third Party Libraries
 from apistar import typesystem
+
+# yapf: disable
+
+
+
 """
 Base class for various schemas type
 
@@ -11,6 +16,7 @@ Be carrefull, each pattern should be 0 or many to not fail if empty
 """
 
 
+# yapf: disable
 class RegularText(typesystem.String):
     """
     standard text
@@ -40,12 +46,6 @@ class EmailSchema(typesystem.String):
     errors = typesystem.String.errors.copy()
     errors['pattern'] = "Please enter a valid e-mail adress"
     description = "Email"
-
-    # def __new__(cls, *args, **kwargs):
-    #     value = super().__new__(cls, *args, **kwargs)
-    #     # obj = typesystem.RegularText.__new__(self, *args, **kwargs)
-    #     # obj.errors['patter'] = "seuls les lettres, - et espaces sont valides"
-    #     return value
 
 
 def regular_text(**kwargs) -> typing.Type:
