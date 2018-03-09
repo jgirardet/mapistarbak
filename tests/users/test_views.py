@@ -5,6 +5,7 @@ import json
 import pytest
 from apistar import reverse_url
 from app import settings
+
 from users.models import User
 
 pytestmark = pytest.mark.django_db

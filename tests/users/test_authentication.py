@@ -7,6 +7,7 @@ from apistar.exceptions import BadRequest, Forbidden
 from apistar_jwt.exceptions import AuthenticationFailed
 from apistar_jwt.token import JWT
 from app import settings
+
 from users.authentication import MapistarJWTAuthentication
 from users.utils import get_payload
 
