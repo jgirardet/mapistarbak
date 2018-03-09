@@ -1,7 +1,8 @@
 # Third Party Libraries
 import pytest
+from tests.factories import FacPrescriptionLibre
 
-pytestmark = [pytest.mark.django_db]
+pytestmark = pytest.mark.django_db
 
 
 # @pytest.mark.timeit(n=1, r=1)
@@ -28,3 +29,9 @@ class TestObservation:
         obs = observation()
         with pytest.raises(AssertionError):
             obs.update(**{'save': "nmnmlnmlkkl"})
+
+
+class TestPrescriptionLibre:
+    def test_string(self):
+        a = FacPrescriptionLibre()
+        assert str(a) == a.titre

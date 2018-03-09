@@ -10,6 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class AuthUser(Auth):
+
     def __init__(self, user: get_user_model(), token=None):
         # def __init__(self, user, token=None):
         self.user = user
@@ -26,8 +27,8 @@ class AuthUser(Auth):
 
 
 class MapistarJWTAuthentication():
-    def authenticate(self, authorization: http.Header, settings: Settings,
-                     db: Db):
+
+    def authenticate(self, authorization: http.Header, settings: Settings, db: Db):
         # Firs we check token validity
         jwt = get_jwt(authorization, settings)
         if jwt.payload == {}:

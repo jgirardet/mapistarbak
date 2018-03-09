@@ -25,3 +25,11 @@ class FacObservation(FacBaseActe):
 
     motif = fk('sentence', nb_words=random.randint(1, 4))
     body = fk('paragraph', nb_sentences=random.randint(1, 10))
+
+
+class FacPrescriptionLibre(FacBaseActe):
+    class Meta:
+        model = 'actes.PrescriptionLibre'
+
+    titre = fk('sentence', nb_words=random.randint(1, 6))
+    body = fk('paragraph', nb_sentences=random.randint(1, 10))

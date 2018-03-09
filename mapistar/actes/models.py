@@ -1,7 +1,6 @@
 # Third Party Libraries
 from django.conf import settings
 from django.db import models
-from django.db.models import manager
 from django.utils import timezone
 from patients.models import Patient
 
@@ -38,10 +37,6 @@ class BaseActe(models.Model):
 
         self.save()
 
-    @property
-    def name(self):
-        return self.__name__
-
 
 class Observation(BaseActe):
     """
@@ -56,7 +51,7 @@ class Observation(BaseActe):
     updatable = ['motif', 'body']
 
     def __str__(self):
-        return self.motif
+        return self.motif  # no
 
 
 class PrescriptionLibre(BaseActe):

@@ -1,10 +1,15 @@
-from .base import *
-from apistar.interfaces import Auth
+# Third Party Libraries
 from apistar.backends.django_orm import Session as DB
+from apistar.interfaces import Auth
+
+# mapistar
+from mapistar.users.authentication import AuthUser
+
+from .base import *
+
 # PERMISSIONS.clear()
 # AUTHENTICATION.clear()
 
-from mapistar.users.authentication import AuthUser
 
 JWT['PAYLOAD_DURATION'] = {'seconds': 9000}
 
